@@ -1,40 +1,45 @@
 <template>
-  <div class="row m-0" style="height: 10vh;"></div>
-  <div class="row  m-0">
-    <empty-column :count='1'></empty-column>
-
-    <div class="col-md-5 block_container">
-      <block-component title="Orders">
-        <div class="d-flex flex-wrap">
-          <cook-order-item
-              class="m-1"
-              v-for="(order, index) in orders"
-              :key="index"
-              :order='order'
-              style="width: 48%"
-              :cookSkills='cook.skills'>
-          </cook-order-item>
-        </div>
-      </block-component>
-    </div>
-    <empty-column :count='1'></empty-column>
-    <empty-column :count='1'></empty-column>
-    <div class="col-md-3 block_container">
-      <block-component title="Skills">
-        <div class="">
-          <div v-for="(skill,index) in allSkills" :key="index">
-            <CookSkillItem
-                :if-available="findIfHasSkill(skill.name)"
-                @cookLearnSkill="cookLearnSkill({cookId: cook.id, stepId: skill.id})"
-            >
-              <span>{{ skill.name }}</span>
-            </CookSkillItem>
-          </div>
-        </div>
-      </block-component>
-    </div>
+  <div v-if="cook.ifWorking">
     <div class="row m-0" style="height: 10vh;"></div>
-    <empty-column :count='1'></empty-column>
+    <div class="row  m-0">
+      <empty-column :count='1'></empty-column>
+
+      <div class="col-md-5 block_container">
+        <block-component title="Orders">
+          <div class="d-flex flex-wrap">
+            <cook-order-item
+                class="m-1"
+                v-for="(order, index) in orders"
+                :key="index"
+                :order='order'
+                style="width: 48%"
+                :cookSkills='cook.skills'>
+            </cook-order-item>
+          </div>
+        </block-component>
+      </div>
+      <empty-column :count='1'></empty-column>
+      <empty-column :count='1'></empty-column>
+      <div class="col-md-3 block_container">
+        <block-component title="Skills">
+          <div class="">
+            <div v-for="(skill,index) in allSkills" :key="index">
+              <CookSkillItem
+                  :if-available="findIfHasSkill(skill.name)"
+                  @cookLearnSkill="cookLearnSkill({cookId: cook.id, stepId: skill.id})"
+              >
+                <span>{{ skill.name }}</span>
+              </CookSkillItem>
+            </div>
+          </div>
+        </block-component>
+      </div>
+      <div class="row m-0" style="height: 10vh;"></div>
+      <empty-column :count='1'></empty-column>
+    </div>
+  </div>
+  <div v-else>
+    You have no access!!!
   </div>
 </template>
 

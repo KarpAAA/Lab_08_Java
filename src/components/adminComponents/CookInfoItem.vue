@@ -17,16 +17,16 @@
 
       <button
           class="mt-1 mb-1 btn btn-danger"
-          @click="releaseCook({cookIndex: index})">
+          @click="this.$emit('releaseCook',{cookId: cook.id})">
         {{ buttons[0] }}
       </button>
       <button v-if="!cook.ifWorking"
               class="mt-1 mb-1 btn btn-light"
-              @click="updateCook({cookIndex: index, workingState: true})">
+              @click="this.$emit('updateCook', {cookId:cook.id, workingState: true})">
         {{ buttons[1] }}
       </button>
       <button v-if="cook.ifWorking" class="mt-1 mb-1 btn btn-light"
-              @click="updateCook({cookIndex: index, workingState: false})">
+              @click="this.$emit('updateCook', {cookId:cook.id, workingState: false})">
         {{ buttons[2] }}
       </button>
 
@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
 
 export default {
   name: "CookInfoItem",
@@ -49,14 +48,7 @@ export default {
   props: {
     index: {required: true},
     cook: {required: true}
-  },
-  methods: {
-    ...mapActions({
-      updateCook: 'updateCook',
-      releaseCook: 'releaseCook'
-    })
   }
-
 }
 </script>
 

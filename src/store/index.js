@@ -245,6 +245,21 @@ const store = createStore({
                 }).catch(error => {
                 console.error(error);
             });
+        },
+        generateClient({dispatch,state}){
+            axios.post("http://localhost:8081/client/new",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getRestaurant');
+                }).catch(error => {
+                console.error(error);
+            });
         }
     },
     plugins: [vuexPersist.plugin]

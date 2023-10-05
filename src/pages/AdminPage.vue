@@ -4,20 +4,28 @@
 
     <div class="col-md-5">
       <div class="row" style="height: 10vh"></div>
-      <div class="row" style="height: 80vh">
+      <div class="row" style="height: 60vh">
         <block-component class="cookContainer" title="Cooks">
 
           <div class="d-flex justify-content-center m-0 mt-2" v-for="(cook, index) in cooks"
                :key='index'>
             <CookInfoItem
-                @updateCookWorking="updateCookWorking"
+                @updateCook="updateCook"
+                @releaseCook="releaseCook"
                 :cook='cook' :index='index'>
             </CookInfoItem>
           </div>
         </block-component>
       </div>
 
-
+      <div class="row mt-2" style="height: 18vh">
+        <block-component title="Operate">
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-success me-5" @click="createCook">Create cook</button>
+            <button class="btn btn-success ms-5" @click="generateClient">Generate client</button>
+          </div>
+        </block-component>
+      </div>
       <div class="row" style="height: 10vh"></div>
     </div>
 
@@ -56,7 +64,7 @@ import EmptyColumn from "@/utils/EmptyColumn.vue";
 import CookInfoItem from "@/components/adminComponents/CookInfoItem.vue";
 import CashRegisters from "@/components/cashRegister/CashRegistersList.vue";
 import OrderItems from "@/components/orders/OrderItems.vue";
-import {mapState, mapMutations, mapActions, mapGetters} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   name: "AdminPage",
@@ -65,25 +73,21 @@ export default {
     this.getRestaurant();
   },
   methods: {
-    ...mapMutations({
-
-    }),
     ...mapActions({
-      getRestaurant: 'getRestaurant'
-    }),
-    updateCookWorking(id) {
-      this.cooks[id].ifWorking = !this.cooks[id].ifWorking;
-    }
+      getRestaurant: 'getRestaurant',
+      updateCook: 'updateCook',
+      releaseCook: 'releaseCook',
+      createCook: 'createCook',
+      generateClient: 'generateClient'
+    })
   },
   computed: {
     ...mapState({
       cooks: state => state.restaurant.cooks,
       cashRegisters: state => state.restaurant.cashRegisters,
       completedOrders: state => state.restaurant.completedOrders,
-    }),
-    ...mapGetters({
 
-    }),
+    })
   }
 }
 </script>
