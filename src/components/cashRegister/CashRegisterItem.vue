@@ -29,9 +29,7 @@ import ClientOfferCashRegister from "@/components/cashRegister/ClientOrderCashRe
 
 export default {
   name: "CashRegisterComponent",
-  mounted() {
-    console.log(this.cashRegister);
-  },
+
   components: {ClientOfferCashRegister},
   data() {
     return {}

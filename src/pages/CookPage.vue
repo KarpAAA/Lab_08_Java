@@ -11,7 +11,8 @@
               v-for="(order, index) in orders"
               :key="index"
               :order='order'
-              style="width: 32%">
+              style="width: 48%"
+              :cookSkills='cook.skills'>
           </cook-order-item>
         </div>
       </block-component>
@@ -22,7 +23,10 @@
       <block-component title="Skills">
         <div class="">
           <div v-for="(skill,index) in allSkills" :key="index">
-            <CookSkillItem :if-available="findIfHasSkill(skill.name)">
+            <CookSkillItem
+                :if-available="findIfHasSkill(skill.name)"
+                @cookLearnSkill="cookLearnSkill({cookId: cook.id, stepId: skill.id})"
+            >
               <span>{{ skill.name }}</span>
             </CookSkillItem>
           </div>
@@ -47,230 +51,15 @@ export default {
     this.getCookByUsername();
     this.getAllSkills();
   },
-  data(){
-    return {
-      // orders: [
-      //   {
-      //     orderNumber: 100,
-      //     pizzas: [
-      //       {
-      //         name:"Pizza1",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         name:"Pizza1",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         name:"Pizza2",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       }
-      // ]
-      //   },
-      //   {
-      //     orderNumber: 100,
-      //     pizzas: [
-      //       {
-      //         name:"Pizza1",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         name:"Pizza2",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     orderNumber: 100,
-      //     pizzas: [
-      //       {
-      //         name:"Pizza1",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         name:"Pizza2",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     orderNumber: 100,
-      //     pizzas: [
-      //       {
-      //         name:"Pizza1",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         name:"Pizza2",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   },{
-      //     orderNumber: 100,
-      //     pizzas: [
-      //       {
-      //         name:"Pizza1",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         name:"Pizza2",
-      //         steps: [
-      //           {
-      //             name: "Step1",
-      //             ifMade: false
-      //           },
-      //           {
-      //             name: "Step2",
-      //             ifMade: true
-      //           },
-      //           {
-      //             name: "Step3",
-      //             ifMade: false
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   },
-      // ]
-    }
-  },
+
   computed: {
     ...mapState({
       allSkills: state => state.allSkills,
       cook : state => state.cook,
-      orders : state => state.restaurant.orders
+      orders : state => state.restaurant.currentOrders
     }),
   },
+
   methods:{
     findIfHasSkill(skillName) {
       if (this.cook.skills && Array.isArray(this.cook.skills)) {
@@ -280,7 +69,8 @@ export default {
     },
     ...mapActions({
       getCookByUsername: 'getCookByUsername',
-      getAllSkills: 'getAllSkills'
+      getAllSkills: 'getAllSkills',
+      cookLearnSkill: 'cookLearnSkill',
     })
   }
 }

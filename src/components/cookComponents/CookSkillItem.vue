@@ -10,11 +10,14 @@
 
     <span v-if='ifAvailable' class="symbol">&#10004;</span>
     <span v-if='!ifAvailable' class="symbol">&#10006;</span>
-    <button v-if='!ifAvailable' class="btn btn-success ms-1">Learn Skill</button>
+    <button v-if='!ifAvailable' class="btn btn-success ms-1"
+            @click="this.$emit('cookLearnSkill')"
+    >Learn Skill</button>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "CookSkillItem",
   props: {

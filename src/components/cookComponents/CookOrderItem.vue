@@ -1,15 +1,32 @@
 <template>
   <div class="order">
-    <p class="ms-3 text-start fw-bold">Order {{ order.orderNumber}}</p>
+    <p class="ms-3 text-start fw-bold mb-0">Order: {{ order.number }}</p>
+    <p class="ms-3 text-start fw-bold mb-0">Price: {{ order.sum }}</p>
 
     <ul class="pizzaList">
-      <li v-for="(pizza,index) in this.order.pizzas" :key="index" class="pizza mb-4">
+      <li v-for="(pizza,index) in this.order.pizzaList" :key="index" class="pizza mb-4">
         <span class="ms-3 text-start fw-bold">{{ pizza.name }}</span>
         <ul class="stepsList">
-          <li v-for="(step,stepIndex) in pizza.steps" :key="stepIndex" class="step">
+          <li v-for="(step,stepIndex) in pizza.needSteps" :key="stepIndex" class="step">
+              <span
+                  :class="[
+                  {'text-decoration-line-through text-black': step.ifMade},
+                  {'active_item': stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade}]"
+                  class="ms-3 text-start fw-bold">{{ step.name }}</span>
+            <button
+                v-if="findIfHasSkill(step.name)
+                && (stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade)
+                && !step.ifMade"
 
-              <span class="ms-3 text-start fw-bold">{{ step.name }}</span>
-
+                class="btn btn-success"
+                @click="doOrderPizzaStep({
+                  orderNumber: order.number,
+                  pizzaIndex: index,
+                  stepIndex: stepIndex
+                })"
+            >
+              Do
+            </button>
           </li>
         </ul>
 
@@ -21,23 +38,47 @@
 
 
 <script>
+import {mapActions} from "vuex";
 export default {
+  mounted() {
+    console.log(this.order);
+  },
   name: "CookOrderItem",
-
   props: {
-   order:{
-     required: true
-   }
+    cookSkills: [Array],
+    order: {
+      required: true
+    }
+  },
+  methods: {
+    ...mapActions({
+      doOrderPizzaStep: 'doOrderPizzaStep',
+    }),
+    findIfHasSkill(skillName) {
+      if (this.cookSkills && Array.isArray(this.cookSkills)) {
+        return this.cookSkills.some(skill => skill === skillName);
+      }
+      return false;
+    },
   }
 }
 </script>
 
 <style scoped>
+.active_item {
+  color: red;
+}
+
+.disabled_item {
+  color: grey;
+}
+
 .order {
   border-radius: 30px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
 }
+
 .pizzaList, .stepsList {
   list-style: none;
 }

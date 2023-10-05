@@ -4,7 +4,7 @@ import VuexPersist from "vuex-persist"
 const vuexPersist = new VuexPersist({
     key: 'user', // unique key for saving state properties in the browser storage
     storage: window.localStorage, // select the type of storage used (eg - localStorage, sessionStorage, etc)
-    reducer: (state) => ({ jwtToken: state.jwtToken}) // select the state properties that you want persisted
+    reducer: (state) => ({ jwtToken: state.jwtToken, user: state.user, cook: state.cook}) // select the state properties that you want persisted
 })
 
 
@@ -18,9 +18,11 @@ const store = createStore({
 
             restaurant: {
                 cooks: [],
-                orders: [],
+                menu:[],
+                clients: [],
                 cashRegisters: [],
-                completedOrders: []
+                completedOrders: [],
+                currentOrders:[]
             }
         }
     },
@@ -45,6 +47,9 @@ const store = createStore({
         setCooks(state, cooks) {
             state.restaurant.cooks = cooks;
         },
+        setClients(state, clients) {
+            state.restaurant.clients = clients;
+        },
         setCook(state, cook) {
             state.cook = cook;
         },
@@ -56,6 +61,12 @@ const store = createStore({
         },
         setAllSkills(state, allSkills) {
             state.allSkills = allSkills;
+        },
+        setMenu(state, menu) {
+            state.restaurant.menu = menu;
+        },
+        setCurrentOrders(state, currentOrders){
+            state.restaurant.currentOrders = currentOrders;
         }
     },
     actions: {
@@ -75,8 +86,9 @@ const store = createStore({
             });
 
         },
-        loginToAccount({commit}, loginInfo) {
+        loginToAccount({commit, dispatch}, loginInfo) {
             commit('setUser', {});
+            dispatch('getRestaurant');
             axios.post("http://localhost:8081/auth",
                 {
                     username: loginInfo.login,
@@ -108,7 +120,10 @@ const store = createStore({
                     commit('setCashRegisters', response.data.paydesks)
                     commit('setCooks', response.data.cooks)
                     commit('setCompletedOrders', response.data.completedOrders)
-                    console.log(response.data.completedOrders);
+                    commit('setClients', response.data.clients)
+                    commit('setMenu', response.data.menu)
+                    commit('setCurrentOrders', response.data.currentOrders)
+                    console.log(response.data);
                 }).catch(error => {
                 console.error(error);
             });
@@ -173,7 +188,68 @@ const store = createStore({
                 console.error(error);
             });
         },
+        cookLearnSkill({state,dispatch}, skillInfo){
+            axios.post("http://localhost:8081/skills/new", skillInfo,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getCookByUsername');
+                }).catch(error => {
+                console.error(error);
+            });
+        },
+        doOrderPizzaStep({state,dispatch}, info){
+            axios.post("http://localhost:8081/order/step", info,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getRestaurant');
+                }).catch(error => {
+                console.error(error);
+            });
+        },
+        standToQueue({dispatch}, info){
+            axios.post("http://localhost:8081/paydesk/queue/stand", info,
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getRestaurant');
+                }).catch(error => {
+                console.error(error);
+            });
+        },
+        leaveFromQueue({dispatch}, info){
+            axios.post("http://localhost:8081/paydesk/queue/leave", info,
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getRestaurant');
+                }).catch(error => {
+                console.error(error);
+            });
+        }
     },
     plugins: [vuexPersist.plugin]
 })
+setInterval(() => {
+    store.dispatch('getRestaurant');
+}, 5000);
 export default store;

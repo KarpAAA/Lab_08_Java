@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       loginInfo:{
-        login: "KarpA124",
+        login: "Cook",
         password : "1111"
       }
     }
