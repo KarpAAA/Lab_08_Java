@@ -1,4 +1,7 @@
 <template>
+  {{completedOrder.order.number}}
+  {{dateTimeToHour(completedOrder.order.createdOrderTime)}}
+  {{dateTimeToHour(completedOrder.order.finishedOrderTime)}}
   <div class="d-flex align-items-center justify-content-around">
     <p class="text-center">{{ completedOrder.paydesk.name }}</p>
     <p class="text-center">{{ completedOrder.client.name }}</p>
@@ -17,6 +20,12 @@ export default {
   components: {OrderItemsList},
   props: {
     completedOrder: {required:true}
+  },
+  methods: {
+    dateTimeToHour(dataTime){
+      const parts = dataTime.split(':');
+      return parts[0]+":" + parts[1];
+    }
   }
 }
 </script>

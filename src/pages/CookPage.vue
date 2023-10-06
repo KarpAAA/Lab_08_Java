@@ -8,6 +8,7 @@
         <block-component title="Orders">
           <div class="d-flex flex-wrap">
             <cook-order-item
+                v-model:processingItem="processingItem"
                 class="m-1"
                 v-for="(order, index) in orders"
                 :key="index"
@@ -58,6 +59,16 @@ export default {
   beforeMount() {
     this.getCookByUsername();
     this.getAllSkills();
+  },
+  data(){
+    return{
+      processingItem: {
+        isProcessing: false,
+        stepIndex: -1,
+        pizzaIndex: -1,
+        orderNumber : -1
+      },
+    }
   },
 
   computed: {

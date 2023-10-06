@@ -13,20 +13,38 @@
                   {'text-decoration-line-through text-black': step.ifMade},
                   {'active_item': stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade}]"
                   class="ms-3 text-start fw-bold">{{ step.name }}</span>
-            <button
-                v-if="findIfHasSkill(step.name)
-                && (stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade)
-                && !step.ifMade"
+            <div>
 
-                class="btn btn-success"
-                @click="doOrderPizzaStep({
+            </div>
+            <div class="container-fluid d-flex justify-content-center">
+              <button
+                  v-if="findIfHasSkill(step.name)
+                && (stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade)
+                && !step.ifMade && !processingItem.isProcessing"
+
+                  class="btn btn-success"
+                  @click="doOrderPizzaStepMethod({
                   orderNumber: order.number,
                   pizzaIndex: index,
                   stepIndex: stepIndex
                 })"
-            >
-              Do
-            </button>
+              >
+                Do
+              </button>
+              <step-processing-progress-bar
+                  v-if="processingItem.isProcessing
+                && processingItem.stepIndex === stepIndex
+                && processingItem.pizzaIndex === index
+                && processingItem.orderNumber === order.number"
+                  total-seconds="3"
+                  @setInactive="setInactiveMethod({
+                  orderNumber: order.number,
+                  pizzaIndex: index,
+                  stepIndex: stepIndex
+                })"
+
+              ></step-processing-progress-bar>
+            </div>
           </li>
         </ul>
 
@@ -39,12 +57,16 @@
 
 <script>
 import {mapActions} from "vuex";
+import StepProcessingProgressBar from "@/components/cookComponents/StepProcessingProgressBar.vue";
+
 export default {
+  components: {StepProcessingProgressBar},
   mounted() {
     console.log(this.order);
   },
   name: "CookOrderItem",
   props: {
+    processingItem: {},
     cookSkills: [Array],
     order: {
       required: true
@@ -54,6 +76,16 @@ export default {
     ...mapActions({
       doOrderPizzaStep: 'doOrderPizzaStep',
     }),
+    doOrderPizzaStepMethod(reqData){
+      this.$emit('update:processingItem',
+          {isProcessing: true, stepIndex: reqData.stepIndex,pizzaIndex: reqData.pizzaIndex,orderNumber : reqData.orderNumber})
+
+    },
+    setInactiveMethod(reqData){
+      this.$emit('update:processingItem',
+          {isProcessing: false,stepIndex: -1,pizzaIndex: -1,orderNumber : -1});
+      this.doOrderPizzaStep(reqData);
+    },
     findIfHasSkill(skillName) {
       if (this.cookSkills && Array.isArray(this.cookSkills)) {
         return this.cookSkills.some(skill => skill === skillName);

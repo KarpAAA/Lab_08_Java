@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
 export default {
   name: "UserPaydesksList",
   data() {
@@ -70,6 +71,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+
+    }),
     availablePaydesks() {
       return this.paydesks.filter(paydeks => paydeks.availability === "AVAILABLE");
     },

@@ -22,7 +22,8 @@ const store = createStore({
                 clients: [],
                 cashRegisters: [],
                 completedOrders: [],
-                currentOrders:[]
+                currentOrders:[],
+                income:{}
             }
         }
     },
@@ -40,6 +41,9 @@ const store = createStore({
     mutations: {
         setJwt(state, token) {
             state.jwtToken = token;
+        },
+        setIncome(state,income){
+          state.restaurant.income = income;
         },
         setUser(state, user) {
             state.user = user;
@@ -123,7 +127,23 @@ const store = createStore({
                     commit('setClients', response.data.clients)
                     commit('setMenu', response.data.menu)
                     commit('setCurrentOrders', response.data.currentOrders)
+                    commit('setIncome', response.data.income)
                     console.log(response.data);
+                }).catch(error => {
+                console.error(error);
+            });
+        },
+        createCook({state, dispatch}, cookInfo){
+            axios.post("http://localhost:8081/cook/create", cookInfo,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getRestaurant');
                 }).catch(error => {
                 console.error(error);
             });
@@ -267,4 +287,8 @@ const store = createStore({
 setInterval(() => {
     store.dispatch('getRestaurant');
 }, 5000);
+
+setInterval(() => {
+    store.dispatch('generateClient');
+}, 10000);
 export default store;
