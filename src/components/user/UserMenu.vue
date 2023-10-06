@@ -4,8 +4,8 @@
 
       <div class="mb-3">
         <span style="font-size: 22px">{{ pizza.name }}</span>
-        <p>⌚ {{ parseDuration(pizza.creationTime) + 'm' }}</p>
-        <p>💵 {{ pizza.price  }}</p>
+        <p>⌚ {{ durationInHour(pizza.creationTime)}}m</p>
+        <p>💵 {{ pizza.price }}</p>
       </div>
 
     </div>
@@ -18,21 +18,16 @@ export default {
   props: {
     pizzas: Array
   },
-  methods:{
-   parseDuration(duration) {
-    if (duration.startsWith("PT")) {
-      const minutes = parseInt(duration.replace(/\D/g, ''), 10);
-      if (!isNaN(minutes)) {
-        return minutes;
-      }
+  methods: {
+    durationInHour(milliseconds) {
+      return milliseconds / 60000;
     }
-    return null; // Повертаємо null у випадку некоректного формату
-  }
   }
 }
+
 </script>
 <style scoped>
-p{
+p {
   font-size: 15px;
   margin: 0;
   padding: 0;
