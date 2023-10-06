@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     durationInHour(milliseconds) {
-      return milliseconds / 60000;
+      return Math.round(milliseconds / 60000);
     }
   }
 }

@@ -26,10 +26,8 @@
    <div class="row  m-0 p-0" style="height: 10vh"></div>
  </div>
 
-  <div v-else style="background-color: #131e3a; height: 100vh;width: 100vw">
-    <div class="error_page">
-      <img :src="require('@/assets/404_error_cut.jpg')">
-    </div>
+  <div v-else>
+   <error-component><img :src="require('@/assets/404_error_cut.jpg')"></error-component>
   </div>
 
 
@@ -42,9 +40,10 @@ import UserPaydesksList from "@/components/user/UserPaydesksList.vue";
 import UserMenu from "@/components/user/UserMenu.vue";
 import UserOrderComponent from "@/components/user/UserOrderComponent.vue";
 import ModalOrderCompletedWindow from "@/components/user/ModalOrderCompletedWindow.vue";
+import ErrorComponent from "@/components/error/ErrorComponent.vue";
 
 export default {
-  components: {ModalOrderCompletedWindow, UserOrderComponent, UserMenu, UserPaydesksList, BlockComponent},
+  components: {ErrorComponent, ModalOrderCompletedWindow, UserOrderComponent, UserMenu, UserPaydesksList, BlockComponent},
   beforeMount() {
     this.getRestaurant();
   },
@@ -79,13 +78,7 @@ export default {
 </script>
 
 <style scoped>
-.error_page{
 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 .component_styles {
   width: 100%;
   height: 100%;

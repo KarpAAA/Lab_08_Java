@@ -38,9 +38,11 @@
       <empty-column :count='1'></empty-column>
     </div>
   </div>
+
   <div v-else>
-    You have no access!!!
+    <error-component><img :src="require('@/assets/error_403.jpg')"></error-component>
   </div>
+
 </template>
 
 <script>
@@ -49,9 +51,10 @@ import BlockComponent from "@/components/BlockComponent.vue";
 import CookOrderItem from "@/components/cookComponents/CookOrderItem.vue";
 import {mapActions, mapState} from "vuex";
 import CookSkillItem from "@/components/cookComponents/CookSkillItem.vue";
+import ErrorComponent from "@/components/error/ErrorComponent.vue";
 export default {
   name: "CookPage",
-  components: {CookSkillItem, CookOrderItem, BlockComponent, EmptyColumn},
+  components: {ErrorComponent, CookSkillItem, CookOrderItem, BlockComponent, EmptyColumn},
   beforeMount() {
     this.getCookByUsername();
     this.getAllSkills();
