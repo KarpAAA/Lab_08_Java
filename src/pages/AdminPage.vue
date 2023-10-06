@@ -2,7 +2,8 @@
   <dialog-window
       @closeModal="closeModal"
       v-if="modalVisible">
-    <cook-add-form @createCook="createCookMethod"></cook-add-form>
+    <cook-add-form v-if="dialogOption === 'createCook'" @createCook="createCookMethod"></cook-add-form>
+    <admin-pizza-menu v-if="dialogOption === 'openMenu'" :pizzas="menu"></admin-pizza-menu>
   </dialog-window>
 
   <div class="row m-0 p-0" style="height: 100vh; background-color: #96c8ee;">
@@ -27,8 +28,8 @@
       <div class="row mt-2" style="height: 18vh">
         <block-component title="Operate">
           <div class="d-flex justify-content-center">
-            <button class="btn btn-success me-5" @click="openModal">Create cook</button>
-            <button class="btn btn-success me-5" @click="openModal">Menu</button>
+            <button class="btn btn-success me-5" @click="openModal('createCook')">Create cook</button>
+            <button class="btn btn-success me-5" @click="openModal('openMenu')">Menu</button>
           </div>
         </block-component>
       </div>
@@ -82,7 +83,8 @@ export default {
      DialogWindow, OrderItems, CashRegisters, CookInfoItem, EmptyColumn, BlockComponent},
   data(){
     return{
-      modalVisible: false
+      modalVisible: false,
+      dialogOption: 'createCook'
     }
   },
   mounted() {
@@ -92,7 +94,8 @@ export default {
     closeModal(){
       this.modalVisible = false;
     },
-    openModal(){
+    openModal(dialogOption){
+      this.dialogOption = dialogOption;
       this.modalVisible = true;
     },
     createCookMethod(cookInfo){

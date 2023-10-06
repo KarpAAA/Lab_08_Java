@@ -6,11 +6,11 @@
         <span style="font-size: 22px">{{ pizza.name }}</span>
         <p>⌚ {{ durationInHour(pizza.creationTime)}}m</p>
         <p>💵 {{ pizza.price }}</p>
-        <button class="btn btn-primary">Create new</button>
+        <button class="btn btn-success">Update</button>
       </div>
 
     </div>
-
+    <button class="btn btn-success">Create new</button>
   </div>
 </template>
 
