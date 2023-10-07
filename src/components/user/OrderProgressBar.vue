@@ -24,6 +24,11 @@ export default {
     targetWidth: Number, // Кількість процентів, на яку повинен заповнитися прогрес-бар
     duration: Number, // Час заповнення прогрес-бара (в мілісекундах)
   },
+  watch:{
+    targetWidth(){
+      this.animateProgressBar();
+    }
+  },
   methods: {
     animateProgressBar() {
       const endWidth = this.targetWidth;
