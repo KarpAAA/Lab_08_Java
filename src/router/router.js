@@ -3,6 +3,7 @@ import LoginPage from "@/pages/LoginPage.vue";
 import MainPage from "@/pages/MainPage.vue";
 import HomePage from "@/pages/HomePage.vue";
 import UserPage from "@/pages/UserPage.vue";
+import NotFoundPage from "@/components/error/NotFoundPage.vue";
 
 const routes = [
     {
@@ -21,12 +22,21 @@ const routes = [
         path: '/user/:id',
         name: 'user',
         component: UserPage,
-        props: true // Дозволяє передавати параметри як властивість компонента
+        props: true
+    },
+    {
+        path: "/404",
+        component: NotFoundPage
+    },
+    {
+        path: '/:catchAll(.*)',
+        redirect: "/404"
     }
 ]
 
 
 export default createRouter({
     routes: routes,
+
     history: createWebHistory()
 });
