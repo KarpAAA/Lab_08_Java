@@ -1,13 +1,14 @@
 <template>
-  <div class="d-flex flex-wrap justify-content-between">
-    <div v-for="(c, index) in cashRegisters" :key='index' class="mb-2" style="width: 50%">
+
+    <div v-for="(c, index) in cashRegisters" :key='index' class="mb-2" style="width: 49%">
       <cash-register-component
+          class="ms-2"
           :index="index + 1"
           :cash-register="c"
           @update-paydesk="updatePaydesk">
       </cash-register-component>
     </div>
-  </div>
+
 </template>
 
 <script>

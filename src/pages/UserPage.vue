@@ -66,7 +66,7 @@ export default {
       return null;
     },
     chosenPaydeskComputed(){
-      if(this.clients && this.clients[this.id] && this.clients[this.id].chosenPaydesk)
+      if(this.clients && this.clients[this.id])
         return this.clients[this.id].chosenPaydesk;
       return -1;
     },

@@ -48,7 +48,9 @@
       <div class="row" style="height: 10vh"></div>
       <div class="row" style="height: 40vh">
         <block-component class="other_container" title="Cash registers">
+          <div class="d-flex flex-wrap">
           <cash-registers :cash-registers='cashRegisters'></cash-registers>
+          </div>
         </block-component>
       </div>
 

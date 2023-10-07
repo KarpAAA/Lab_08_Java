@@ -9,7 +9,7 @@
           <td></td>
         </tr>
 
-        <tr v-for="(paydesk, paydeskIndex) in availablePaydesks" :key="paydeskIndex">
+        <tr v-for="(paydesk) in availablePaydesks" :key="paydesk.index">
 
           <td>{{ paydesk.name }}</td>
           <td>
@@ -26,13 +26,13 @@
           <td>{{ paydesk.clients.length }}</td>
           <td>
             <button class="btn"
-                    @click='standToQueue(paydeskIndex)'
+                    @click='standToQueue(paydesk.index)'
                     v-if="chosenPaydesk === -1">
               Stand
             </button>
             <button class="btn"
-                    @click='leaveFromQueue(paydeskIndex)'
-                    v-if="paydeskIndex === chosenPaydesk">
+                    @click='leaveFromQueue(paydesk.index)'
+                    v-if="paydesk.index === chosenPaydesk">
               Leave
             </button>
           </td>

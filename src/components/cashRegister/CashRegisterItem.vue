@@ -6,7 +6,7 @@
     <div v-for="c in cashRegister.clients" :key='c.index'>
       <client-offer-cash-register :client="c"></client-offer-cash-register>
     </div>
-    <div class="d-flex mb-2">
+    <div class="d-flex mb-2 w-75">
       <button
           v-if="cashRegister.availability === 'AVAILABLE'"
           class="btn btn-danger me-2"
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style scoped>
-* {
+button,p {
   width: 90%;
 }
 
