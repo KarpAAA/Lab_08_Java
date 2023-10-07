@@ -3,7 +3,13 @@
       @closeModal="closeModal"
       v-if="modalVisible">
     <cook-add-form v-if="dialogOption === 'createCook'" @createCook="createCookMethod"></cook-add-form>
-    <admin-pizza-menu v-if="dialogOption === 'openMenu'" :pizzas="menu"></admin-pizza-menu>
+    <admin-pizza-menu
+        @deletePizza="deletePizzaMethod"
+        @pizzaUpdate="pizzaUpdate" v-if="dialogOption === 'openMenu'" :pizzas="menu"></admin-pizza-menu>
+    <pizza-form-component
+        @savePizza="savePizzaMethod"
+        :edit-pizza='pizzaForForm'
+        v-if="dialogOption === 'pizza'" :pizzas="menu"></pizza-form-component>
   </dialog-window>
 
   <div class="row m-0 p-0" style="height: 100vh; background-color: #96c8ee;">
@@ -74,23 +80,30 @@ import {mapState, mapActions} from 'vuex'
 import DialogWindow from "@/components/DialogWindow.vue";
 import AdminPizzaMenu from "@/components/adminComponents/AdminPizzaMenu.vue";
 import CookAddForm from "@/components/CookAddForm.vue";
+import PizzaFormComponent from "@/components/PizzaFormComponent.vue";
 
 export default {
   name: "AdminPage",
   components: {
+    PizzaFormComponent,
     CookAddForm,
     AdminPizzaMenu,
      DialogWindow, OrderItems, CashRegisters, CookInfoItem, EmptyColumn, BlockComponent},
   data(){
     return{
       modalVisible: false,
-      dialogOption: 'createCook'
+      dialogOption: 'createCook',
+      pizzaForForm:{}
     }
   },
   mounted() {
     this.getRestaurant();
   },
   methods: {
+    pizzaUpdate(param){
+      this.pizzaForForm = param;
+      this.dialogOption = 'pizza';
+    },
     closeModal(){
       this.modalVisible = false;
     },
@@ -100,13 +113,23 @@ export default {
     },
     createCookMethod(cookInfo){
       this.createCook(cookInfo);
-      this.closeModal();
+      this.dialogOption = 'createCook';
+    },
+    savePizzaMethod(pizzaInfo){
+      this.savePizza(pizzaInfo);
+      this.dialogOption = 'openMenu';
+    },
+    deletePizzaMethod(pizzaId){
+      this.deletePizza({id:pizzaId})
+      this.dialogOption = 'openMenu';
     },
     ...mapActions({
       getRestaurant: 'getRestaurant',
       updateCook: 'updateCook',
       releaseCook: 'releaseCook',
-      createCook: 'createCook'
+      createCook: 'createCook',
+      savePizza: 'savePizza',
+      deletePizza: 'deletePizza'
     })
   },
   computed: {

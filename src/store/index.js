@@ -280,6 +280,36 @@ const store = createStore({
                 }).catch(error => {
                 console.error(error);
             });
+        },
+        savePizza({dispatch,state},pizzaInfo){
+            axios.post("http://localhost:8081/pizza",pizzaInfo,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getRestaurant');
+                }).catch(error => {
+                console.error(error);
+            });
+        },
+        deletePizza({dispatch,state},pizzaInfo){
+            axios.post("http://localhost:8081/pizza/delete",pizzaInfo,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    dispatch('getRestaurant');
+                }).catch(error => {
+                console.error(error);
+            });
         }
     },
     plugins: [vuexPersist.plugin]
