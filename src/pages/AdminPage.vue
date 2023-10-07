@@ -73,16 +73,16 @@
 <script>
 
 
-import BlockComponent from "@/components/BlockComponent.vue";
-import EmptyColumn from "@/utils/EmptyColumn.vue";
-import CookInfoItem from "@/components/adminComponents/CookInfoItem.vue";
-import CashRegisters from "@/components/cashRegister/CashRegistersList.vue";
-import OrderItems from "@/components/orders/OrderItems.vue";
+import BlockComponent from "@/components/generalComponents/BlockComponent.vue";
+import EmptyColumn from "@/components/generalComponents/EmptyColumn.vue";
+import CookInfoItem from "@/components/admin/CookInfoItem.vue";
+import CashRegisters from "@/components/admin/CashRegistersList.vue";
+import OrderItems from "@/components/admin/order/OrderItems.vue";
 import {mapState, mapActions} from 'vuex'
-import DialogWindow from "@/components/DialogWindow.vue";
-import AdminPizzaMenu from "@/components/adminComponents/AdminPizzaMenu.vue";
-import CookAddForm from "@/components/CookAddForm.vue";
-import PizzaFormComponent from "@/components/PizzaFormComponent.vue";
+import DialogWindow from "@/components/generalComponents/DialogWindow.vue";
+import AdminPizzaMenu from "@/components/admin/AdminPizzaMenu.vue";
+import CookAddForm from "@/components/admin/forms/CookAddForm.vue";
+import PizzaFormComponent from "@/components/admin/forms/PizzaFormComponent.vue";
 
 export default {
   name: "AdminPage",

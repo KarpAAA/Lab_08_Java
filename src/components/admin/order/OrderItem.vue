@@ -7,7 +7,7 @@
 
 <script>
 
-import OrderInfo from "@/components/orders/OrderInfo.vue";
+import OrderInfo from "@/components/admin/order/OrderInfo.vue";
 
 export default {
   name: "OrderItem",

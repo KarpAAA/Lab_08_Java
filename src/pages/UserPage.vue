@@ -36,12 +36,12 @@
 
 <script>
 import {mapActions, mapState} from "vuex";
-import BlockComponent from "@/components/BlockComponent.vue";
+import BlockComponent from "@/components/generalComponents/BlockComponent.vue";
 import UserPaydesksList from "@/components/user/UserPaydesksList.vue";
 import UserMenu from "@/components/user/UserMenu.vue";
 import UserOrderComponent from "@/components/user/UserOrderComponent.vue";
 import ModalOrderCompletedWindow from "@/components/user/ModalOrderCompletedWindow.vue";
-import ErrorComponent from "@/components/error/ErrorComponent.vue";
+import ErrorComponent from "@/components/generalComponents/error/ErrorComponent.vue";
 
 export default {
   components: {ErrorComponent, ModalOrderCompletedWindow, UserOrderComponent, UserMenu, UserPaydesksList, BlockComponent},

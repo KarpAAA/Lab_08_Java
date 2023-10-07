@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import OrderItemsList from "@/components/OrderItemsList.vue";
+import OrderItemsList from "@/components/admin/order/OrderItemsList.vue";
 
 export default {
   name: "OrderInfo",

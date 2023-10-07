@@ -57,7 +57,7 @@
 
 <script>
 import {mapActions} from "vuex";
-import StepProcessingProgressBar from "@/components/cookComponents/StepProcessingProgressBar.vue";
+import StepProcessingProgressBar from "@/components/cook/StepProcessingProgressBar.vue";
 
 export default {
   components: {StepProcessingProgressBar},

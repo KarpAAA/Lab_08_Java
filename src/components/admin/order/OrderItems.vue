@@ -9,7 +9,7 @@
 <script>
 
 
-import OrderItem from "@/components/orders/OrderItem.vue";
+import OrderItem from "@/components/admin/order/OrderItem.vue";
 
 export default {
   name: "OrderItems",

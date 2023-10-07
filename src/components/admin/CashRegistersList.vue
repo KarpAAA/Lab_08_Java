@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import CashRegisterComponent from "@/components/cashRegister/CashRegisterItem.vue";
+import CashRegisterComponent from "@/components/admin/CashRegisterItem.vue";
 import {mapActions} from 'vuex'
 
 export default {

@@ -3,7 +3,7 @@ import LoginPage from "@/pages/LoginPage.vue";
 import MainPage from "@/pages/MainPage.vue";
 import HomePage from "@/pages/HomePage.vue";
 import UserPage from "@/pages/UserPage.vue";
-import NotFoundPage from "@/components/error/NotFoundPage.vue";
+import NotFoundPage from "@/components/generalComponents/error/NotFoundPage.vue";
 
 const routes = [
     {

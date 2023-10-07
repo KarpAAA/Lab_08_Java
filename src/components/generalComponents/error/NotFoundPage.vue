@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ErrorComponent from "@/components/error/ErrorComponent.vue";
+import ErrorComponent from "@/components/generalComponents/error/ErrorComponent.vue";
 
 export default {
   name: "NotFoundPage",

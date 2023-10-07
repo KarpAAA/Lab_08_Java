@@ -48,12 +48,12 @@
 </template>
 
 <script>
-import EmptyColumn from "@/utils/EmptyColumn.vue";
-import BlockComponent from "@/components/BlockComponent.vue";
-import CookOrderItem from "@/components/cookComponents/CookOrderItem.vue";
+import EmptyColumn from "@/components/generalComponents/EmptyColumn.vue";
+import BlockComponent from "@/components/generalComponents/BlockComponent.vue";
+import CookOrderItem from "@/components/cook/CookOrderItem.vue";
 import {mapActions, mapState} from "vuex";
-import CookSkillItem from "@/components/cookComponents/CookSkillItem.vue";
-import ErrorComponent from "@/components/error/ErrorComponent.vue";
+import CookSkillItem from "@/components/cook/CookSkillItem.vue";
+import ErrorComponent from "@/components/generalComponents/error/ErrorComponent.vue";
 export default {
   name: "CookPage",
   components: {ErrorComponent, CookSkillItem, CookOrderItem, BlockComponent, EmptyColumn},

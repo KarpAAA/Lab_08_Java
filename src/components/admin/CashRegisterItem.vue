@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ClientOfferCashRegister from "@/components/cashRegister/ClientOrderCashRegister.vue";
+import ClientOfferCashRegister from "@/components/user/ClientOrderCashRegister.vue";
 
 export default {
   name: "CashRegisterComponent",
