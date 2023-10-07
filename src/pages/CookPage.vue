@@ -7,6 +7,7 @@
       <div class="col-md-5 block_container">
         <block-component title="Orders">
           <div class="d-flex flex-wrap">
+
             <cook-order-item
                 v-model:processingItem="processingItem"
                 class="m-1"

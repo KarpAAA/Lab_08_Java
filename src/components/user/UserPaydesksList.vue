@@ -48,26 +48,23 @@
 import {mapState} from "vuex";
 export default {
   name: "UserPaydesksList",
-  data() {
-    return {
-      chosenPaydesk: -1,
-    }
-  },
   props: {
     clientIndex:{
       type:Number,
       required:true
+    },
+    chosenPaydesk:{
+      type: Number,
+      default: -1,
     },
     paydesks: [Array]
   },
   methods: {
     standToQueue(paydeskIndex) {
       this.$emit("standToQueue", {paydeskIndex: paydeskIndex, clientIndex: this.clientIndex});
-      this.chosenPaydesk = paydeskIndex;
     },
     leaveFromQueue(paydeskIndex) {
       this.$emit("leaveFromQueue", {paydeskIndex: paydeskIndex, clientIndex: this.clientIndex})
-      this.chosenPaydesk = -1
     }
   },
   computed: {

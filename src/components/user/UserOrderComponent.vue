@@ -32,18 +32,13 @@ export default {
   },
   methods: {
     calculateCompletionPercentage() {
-      if (this.order.pizzaList.length === 0) {
-        return 0;
-      }
       const completedSteps = this.order.pizzaList.reduce((total, pizza) => {
         return total + pizza.needSteps.filter(step => step.ifMade).length;
       }, 0);
 
       const needSteps = this.order.pizzaList.reduce((total, pizza) => {
         return total + pizza.needSteps.length;
-      }, 0);
-      console.log(completedSteps);
-      console.log(needSteps);
+      }, 0)
       return (completedSteps / needSteps) * 100;
     },
     pizzaReadyStatus(pizza) {

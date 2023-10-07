@@ -13,6 +13,7 @@
          <user-paydesks-list
              @standToQueue="standToQueue"
              @leaveFromQueue="leaveFromQueue"
+             :chosenPaydesk="chosenPaydeskComputed"
              :paydesks="paydesks"
              :client-index="numberId"></user-paydesks-list>
        </block-component>
@@ -51,6 +52,11 @@ export default {
   props: {
     id: {Number}
   },
+  data(){
+    return{
+      chosenPaydesk: -1
+    }
+  },
   computed: {
     numberId() {
       return parseInt(this.id)
@@ -59,10 +65,15 @@ export default {
       if(this.clients && this.clients[this.id]) return this.clients[this.id].order;
       return null;
     },
+    chosenPaydeskComputed(){
+      if(this.clients && this.clients[this.id] && this.clients[this.id].chosenPaydesk)
+        return this.clients[this.id].chosenPaydesk;
+      return -1;
+    },
     ...mapState({
       paydesks: state => state.restaurant.cashRegisters,
       clients: state => state.restaurant.clients,
-      menu: state => state.restaurant.menu,
+      menu: state => state.restaurant.menu
     }),
 
   },

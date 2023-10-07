@@ -1,7 +1,7 @@
 <template>
     <div class="progress-bar__container">
       <div class="progress-bar" :style="{ width: `${currentWidth}%` }">
-        <span class="progress-bar__text">{{ targetWidth }}%</span>
+        <span class="progress-bar__text">{{ progressText }}</span>
       </div>
     </div>
 </template>
@@ -30,7 +30,11 @@ export default {
       gsap.to(this.$el.querySelector('.progress-bar'), {
         width: `${endWidth}%`,
         duration: (this.duration / 1000), // Переводимо в секунди
-        onComplete: () => {},
+        onComplete: () => {
+
+          this.ifCompleted = true;
+
+        },
       });
     },
   },
