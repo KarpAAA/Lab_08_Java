@@ -1,37 +1,54 @@
 <template>
   <div class="login-container">
-      <h2>Sign in</h2>
-      <div class="form-group">
-        <label for="login">Username: </label>
-        <input type="text" v-model="loginInfo.login" id="login" name="login" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password: </label>
-        <input type="password" v-model="loginInfo.password" id="password" name="password" required>
-      </div>
-      <button class="btn btn-success" @click="loginMethod">Sign in</button>
+    <h2>Sign in</h2>
+    <div class="form-group">
+      <label for="login">Username: </label>
+      <input type="text" v-model="loginInfo.login" id="login" name="login" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password: </label>
+      <input type="password" v-model="loginInfo.password" id="password" name="password" required>
+    </div>
+    <div v-if='!this.loginState'>
+      <p class="text-danger mb-3">Bad credentials</p>
+    </div>
+    <button class="btn btn-success" @click="loginMethod">Sign in</button>
 
   </div>
 </template>
 
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "LoginPage",
   data() {
     return {
-      loginInfo:{
-        login: "Cook",
-        password : "1111"
+      loginInfo: {
+        login: "KarpA124",
+        password: "1111"
+      },
+      loginState: true
+    }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user,
+    }),
+  },
+  watch: {
+    user() {
+      if (this.user && this.user.name) {
+        this.loginState = true;
+        this.$router.push('/main')
       }
+      if (this.user && !this.user.name) this.loginState = false;
     }
   },
   methods: {
-    loginMethod(){
+    loginMethod() {
       this.loginToAccount(this.loginInfo);
-      this.$router.push('/main')
     },
     ...mapActions({
       loginToAccount: 'loginToAccount'
