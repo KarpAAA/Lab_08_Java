@@ -77,7 +77,7 @@ export default {
 
 <style scoped>
 #errorText {
-  font-family: 'Press Start 2P', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   font-size: 18px;
   font-weight: 700;
 }
@@ -102,7 +102,7 @@ export default {
 
 label {
   min-width: 404px;
-  font-family: 'Press Start 2P', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   font-size: 18px;
   font-weight: 700;
   line-height: 14px;
@@ -113,7 +113,7 @@ label {
 
 input[type="text"],
 input[type="password"] {
-  font-family: 'Press Start 2P', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   min-height: 67px;
   font-size: 20px;
   width: 100%;

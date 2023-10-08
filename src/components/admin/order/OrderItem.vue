@@ -1,5 +1,5 @@
 <template>
-  <div class="order_item_container ">
+  <div>
     <order-info :completedOrder="completedOrder"></order-info>
   </div>
 
@@ -21,9 +21,4 @@ export default {
 
 <style scoped>
 
-.order_item_container {
-  background-color: #EEE4E4;
-  border: 1px solid #000000;
-  border-radius: 10px;
-}
 </style>

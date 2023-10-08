@@ -12,39 +12,46 @@
         v-if="dialogOption === 'pizza'" :pizzas="menu"></pizza-form-component>
   </dialog-window>
 
-  <div class="row m-0 p-0" style="height: 100vh; background-color: #96c8ee;">
+  <div class="row m-0 p-0"
+       :style="{ backgroundImage: 'url(' + require('@/assets/background.png') + ')' }">
     <empty-column :count='1'></empty-column>
 
     <div class="col-md-5">
-      <div class="row" style="height: 10vh"></div>
-      <div class="row" style="height: 60vh">
+
+      <div class="row pt-2" style="height: 10vh">
+        <custom-button
+            id="menu_button"
+            @click="openModal('openMenu')"
+            :style="{ backgroundImage: 'url(' + require('@/assets/small_green_btn.svg') + ')' }"
+        >Menu</custom-button>
+      </div>
+
+      <div class="row" style="height: 80vh">
         <block-component class="cookContainer" title="Cooks">
+          <div class="d-flex flex-column">
+            <div class="d-flex justify-content-center m-0 mb-3" v-for="(cook, index) in cooks"
+                 :key='index'>
+              <CookInfoItem
+                  @updateCook="updateCook"
+                  @releaseCook="releaseCook"
+                  :cook='cook' :index='index'>
+              </CookInfoItem>
+            </div>
+            <button class="add_cook_btn align-self-center mb-3"
+                    @click="openModal('createCook')">
+              <img :src="require('@/assets/icons/add_btn.svg')">
 
-          <div class="d-flex justify-content-center m-0 mt-2" v-for="(cook, index) in cooks"
-               :key='index'>
-            <CookInfoItem
-                @updateCook="updateCook"
-                @releaseCook="releaseCook"
-                :cook='cook' :index='index'>
-            </CookInfoItem>
+            </button>
           </div>
+
         </block-component>
       </div>
 
-      <div class="row mt-2" style="height: 18vh">
-        <block-component title="Operate">
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-success me-5" @click="openModal('createCook')">Create cook</button>
-            <button class="btn btn-success me-5" @click="openModal('openMenu')">Menu</button>
-          </div>
-        </block-component>
-      </div>
-      <div class="row" style="height: 10vh"></div>
+
     </div>
 
-    <empty-column :count='1'></empty-column>
 
-    <div class="col-md-4">
+    <div class="col-md-5 ms-4">
       <div class="row" style="height: 10vh"></div>
       <div class="row" style="height: 40vh">
         <block-component class="other_container" title="Cash registers">
@@ -54,11 +61,10 @@
         </block-component>
       </div>
 
-      <div class="row" style="height: 10vh"></div>
-
-      <div class="row" style="height: 30vh">
+      <div class="row" style="height: 2vh"></div>
+      <div class="row" style="height: 38vh">
         <block-component class="other_container" title="All orders">
-          <p style="text-align: center;font-size: 20px">💵 {{ income }}</p>
+          <p class="income_text">{{ income }} 💵</p>
           <order-items :completedOrders="completedOrders"></order-items>
         </block-component>
       </div>
@@ -83,10 +89,12 @@ import DialogWindow from "@/components/generalComponents/DialogWindow.vue";
 import AdminPizzaMenu from "@/components/admin/AdminPizzaMenu.vue";
 import CookAddForm from "@/components/admin/forms/CookAddForm.vue";
 import PizzaFormComponent from "@/components/admin/forms/PizzaFormComponent.vue";
+import CustomButton from "@/components/CustomButton.vue";
 
 export default {
   name: "AdminPage",
   components: {
+    CustomButton,
     PizzaFormComponent,
     CookAddForm,
     AdminPizzaMenu,
@@ -147,7 +155,27 @@ export default {
 </script>
 
 <style scoped>
+.income_text {
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 11px;
+  letter-spacing: 0.135em;
+  color: white;
+}
 
+.add_cook_btn {
+  min-width: 50px;
+  width: fit-content;
+  background: none;
+  border: none;
+}
+#menu_button {
+  width: 146px;
+  height: 62px;
+
+}
 .cookContainer {
   height: 100%;
   width: 100%;

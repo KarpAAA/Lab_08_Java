@@ -6,8 +6,9 @@
 
       <div class="col-md-5 block_container">
         <block-component title="Orders">
-          <div class="d-flex justify-content-center">
+          <div class="d-flex flex-wrap justify-content-center">
             <cook-order-item
+                class="mb-3"
                 v-model:processingItem="processingItem"
                 v-for="(order, index) in orders"
                 :key="index"

@@ -6,7 +6,7 @@
         {{ title }}
       </p>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-4">
       <slot></slot>
     </div>
 

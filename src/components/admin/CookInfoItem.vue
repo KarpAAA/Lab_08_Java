@@ -1,5 +1,5 @@
 <template>
-  <div class="main_container d-flex justify-content-between p-2 ">
+  <div class="main_container d-flex justify-content-around p-2 ">
 
     <div class="name d-flex justify-content-center align-items-center">
       {{ cook.name }}
@@ -7,27 +7,28 @@
 
 
     <div class="cook_item d-flex flex-column justify-content-center">
-      <div v-for="s in cook.skills" :key="s.id">
+      <div class="skill_list" v-for="s in cook.skills" :key="s.id">
         {{ s }}
       </div>
     </div>
 
-
     <div class="buttons_list d-flex flex-column">
 
       <button
-          class="mt-1 mb-1 btn btn-danger"
+          class="mt-1 mb-1 btn vector_btn"
           @click="this.$emit('releaseCook',{cookId: cook.id})">
-        {{ buttons[0] }}
+        <img :src="require('@/assets/icons/bin.svg')">
       </button>
       <button v-if="!cook.ifWorking"
-              class="mt-1 mb-1 btn btn-light"
+              class="mt-1 mb-1 btn vector_btn_resume"
               @click="this.$emit('updateCook', {cookId:cook.id, workingState: true})">
-        {{ buttons[1] }}
+        <img :src="require('@/assets/icons/resume.svg')">
       </button>
-      <button v-if="cook.ifWorking" class="mt-1 mb-1 btn btn-light"
+      <button
+          v-if="cook.ifWorking"
+          class="mt-1 mb-1 btn vector_btn"
               @click="this.$emit('updateCook', {cookId:cook.id, workingState: false})">
-        {{ buttons[2] }}
+        <img :src="require('@/assets/icons/stop.svg')">
       </button>
 
     </div>
@@ -40,11 +41,6 @@
 
 export default {
   name: "CookInfoItem",
-  data() {
-    return {
-      buttons: ["RELEASE", "MAKE WORK", "MAKE FREE"]
-    }
-  },
   props: {
     index: {required: true},
     cook: {required: true}
@@ -53,19 +49,33 @@ export default {
 </script>
 
 <style scoped>
+.vector_btn {
+  width: fit-content;
+  min-width: 40px;
+  background-color: white;
+}
+.vector_btn_resume{
+  width: fit-content;
+  min-width: 40px;
+  background-color: #ACCA66;
+}
+.skill_list {
+  line-height: 21px;
+
+}
 .main_container {
-  border: 1px solid #000000;
-  border-radius: 30px;
-  background-color: #ffffff;
-  color: #000000;
-  width: 90%;
+  font-family: "Press Start 2P", cursive;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 10px;
+  letter-spacing: 0.135em;
+  text-align: left;
+
+  border-radius: 26px;
+  background-color: #442911;
+  color: white;
+  width: 94%;
+  border: 3px solid #442911
 }
 
-.cook_item {
-
-}
-
-.skills_list ul {
-
-}
 </style>
