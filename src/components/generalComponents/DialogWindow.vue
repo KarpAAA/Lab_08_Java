@@ -8,7 +8,6 @@
     </button>
     <div class="modal-content scroll_container">
       <slot></slot>
-
     </div>
 
   </div>
@@ -18,7 +17,8 @@
 export default {
   name: "DialogWindow",
   props: {
-    title:{required:true}
+    title:{required:true},
+
   },
   methods:{
     closeModal(){

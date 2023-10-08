@@ -30,7 +30,7 @@ export default {
 }
 
 .modal-content {
-  background-color: #02b019;
+  background-color: #ACCA66;
   color: white;
   font-size: 25px;
   border-radius: 10px;

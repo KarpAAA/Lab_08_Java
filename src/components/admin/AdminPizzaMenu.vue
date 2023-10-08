@@ -17,11 +17,11 @@
 
 
         <div class="mt-4 ms-2 me-2 mb-3 d-flex justify-content-between">
-          <button class="btn vector_btn me-2"
+          <button v-if="isAdmin" class="btn vector_btn me-2"
                   @click="this.$emit('pizzaUpdate',pizza)">
             <img :src="require('@/assets/icons/edit.svg')">
           </button>
-          <button
+          <button v-if="isAdmin"
               class="btn vector_btn ms-2"
               @click="this.$emit('deletePizza',pizza.id)">
             <img :src="require('@/assets/icons/bin.svg')">
@@ -31,7 +31,7 @@
       </div>
 
     </div>
-    <div class="pizza_container ms-3 me-3 mt-3 mb-3 d-flex justify-content-center" :style="containerStyle">
+    <div v-if="isAdmin" class="pizza_container ms-3 me-3 mt-3 mb-3 d-flex justify-content-center" :style="containerStyle">
       <button class="add_cook_btn align-self-center mb-3"
               @click="this.$emit('pizzaUpdate')">
         <img :src="require('@/assets/icons/add_btn.svg')">
@@ -56,7 +56,11 @@ export default {
       this.containerStyle = { width: `${containerWidth}px` };
   },
   props: {
-    pizzas: Array
+    pizzas: Array,
+    isAdmin: {
+      type:Boolean,
+      required: true
+    }
   },
   methods: {
     durationInHour(milliseconds) {

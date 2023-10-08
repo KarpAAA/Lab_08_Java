@@ -1,19 +1,16 @@
 <template>
   <div v-if="order" class="d-flex flex-column align-items-center">
 
-      <div class="pizza container-fluid" style="width: 80%" v-for="(pizza, index) in order.pizzaList" :key="index">
-        <div class="pizza-list-item"
-             :class="[{'pizza-list-item_owned': pizzaReadyStatus(pizza)}, {'pizza-list-item_not_owned': !pizzaReadyStatus(pizza)}]">
-          <span class="ms-3">🍕</span>
-          <div class="pizza_name ms-4">
+      <div class="container-fluid" v-for="(pizza, index) in order.pizzaList" :key="index">
+        <div class="pizza-list-item d-flex justify-content-around mt-2 mb-2"
+             :class="[{'pizza-list-item_owned': pizzaReadyStatus(pizza)},
+              {'pizza-list-item_not_owned': !pizzaReadyStatus(pizza)}]">
+          <div class="pizza_name mt-2 mb-2">
               {{ pizza.name }}
           </div>
-          <div>
-            <span v-if='pizzaReadyStatus(pizza)' class="symbol">&#10004;</span>
-            <span v-if='!pizzaReadyStatus(pizza)' class="symbol">&#10006;</span>
-          </div>
-          <div class="ms-5">💵 {{ pizza.price }}</div>
-          <div></div>
+
+          <div class="ms-5  mt-2 mb-2">💵 {{ pizza.price }}</div>
+
         </div>
       </div>
 
@@ -49,18 +46,20 @@ export default {
 </script>
 
 <style>
-.pizza_name {
- font-size: 22px;
-  min-width: 100px;
-}
 
 .pizza-list-item {
+  background-color: #442911;
   padding: 8px;
-  border: 1px solid #ccc;
+  border-radius: 11px;
   margin: 5px;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: 0.135em;
+  text-align: left;
+
 }
 
 .pizza-list-item_owned {

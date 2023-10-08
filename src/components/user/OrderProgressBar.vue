@@ -53,13 +53,13 @@ export default {
 
 .progress-bar__container {
   width: 80%;
-  height: 2rem;
-  border-radius: 2rem;
+  height: 18px;
+  border-radius: 4px;
   position: relative;
   overflow: hidden;
   transition: all 0.5s;
   will-change: transform;
-  box-shadow: 0 0 5px #155b02;
+  background-color: #442911;
 }
 
 .progress-bar {
@@ -67,7 +67,7 @@ export default {
   height: 100%;
   width: 0; /* Початкова ширина 0% */
   content: "";
-  background-color: #01a921;
+  background-color: #ACCA66;
   top: 0;
   bottom: 0;
   left: 0; /* Змінено на 0, так як ширина буде анімованою */

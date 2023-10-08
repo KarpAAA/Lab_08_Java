@@ -4,6 +4,7 @@
       v-if="modalVisible">
     <cook-add-form v-if="dialogOption === 'Create Cook'" @createCook="createCookMethod"></cook-add-form>
     <admin-pizza-menu
+        :is-admin="true"
         @deletePizza="deletePizzaMethod"
         @pizzaUpdate="pizzaUpdate" v-if="dialogOption === 'Menu'" :pizzas="menu"></admin-pizza-menu>
     <pizza-form-component
@@ -11,6 +12,8 @@
         :edit-pizza='pizzaForForm'
         v-if="dialogOption === 'Pizza'" :pizzas="menu"></pizza-form-component>
   </dialog-window>
+
+
 
   <div class="row m-0 p-0"
        :style="{ backgroundImage: 'url(' + require('@/assets/background.png') + ')' }">
