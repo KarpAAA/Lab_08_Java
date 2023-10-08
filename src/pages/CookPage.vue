@@ -1,28 +1,25 @@
 <template>
-  <div v-if="cook.ifWorking">
+  <div v-if="cook.ifWorking" :style="{ backgroundImage: 'url(' + require('@/assets/background.png') + ')' }">
     <div class="row m-0" style="height: 10vh;"></div>
-    <div class="row  m-0">
+    <div class="row m-0" style="height: 90vh;">
       <empty-column :count='1'></empty-column>
 
       <div class="col-md-5 block_container">
         <block-component title="Orders">
-          <div class="d-flex flex-wrap">
-
+          <div class="d-flex justify-content-center">
             <cook-order-item
                 v-model:processingItem="processingItem"
-                class="m-1"
                 v-for="(order, index) in orders"
                 :key="index"
                 :order='order'
-                style="width: 48%"
+                style="width: 85%"
                 :cookSkills='cook.skills'>
             </cook-order-item>
           </div>
         </block-component>
       </div>
-      <empty-column :count='1'></empty-column>
-      <empty-column :count='1'></empty-column>
-      <div class="col-md-3 block_container">
+
+      <div class="col-md-5 block_container">
         <block-component title="Skills">
           <div class="">
             <div v-for="(skill,index) in allSkills" :key="index">
@@ -36,8 +33,6 @@
           </div>
         </block-component>
       </div>
-      <div class="row m-0" style="height: 10vh;"></div>
-      <empty-column :count='1'></empty-column>
     </div>
   </div>
 
@@ -103,6 +98,6 @@ export default {
   min-width: 130px;
 }
 .block_container{
-  height: 75vh;
+  height: 80vh;
 }
 </style>

@@ -1,28 +1,34 @@
 <template>
   <div class="order">
-    <p class="ms-3 text-start fw-bold mb-0">Order: {{ order.number }}</p>
-    <p class="ms-3 text-start fw-bold mb-0">Price: {{ order.sum }}</p>
+    <div class="order_data d-flex justify-content-around mt-4">
+      <div>
+        Order: {{ order.number }}
+      </div>
+      <div>
+        💵 {{ order.sum }}
+      </div>
+    </div>
 
-    <ul class="pizzaList">
+
+    <ul class="pizzaList mt-3">
       <li v-for="(pizza,index) in this.order.pizzaList" :key="index" class="pizza mb-4">
         <span class="ms-3 text-start fw-bold">{{ pizza.name }}</span>
         <ul class="stepsList">
           <li v-for="(step,stepIndex) in pizza.needSteps" :key="stepIndex" class="step">
               <span
                   :class="[
-                  {'text-decoration-line-through text-black': step.ifMade},
+                  {'text-decoration-line-through madeStep': step.ifMade},
                   {'active_item': stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade}]"
                   class="ms-3 text-start fw-bold">{{ step.name }}</span>
-            <div>
 
-            </div>
-            <div class="container-fluid d-flex justify-content-center">
+
               <button
                   v-if="findIfHasSkill(step.name)
                 && (stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade)
                 && !step.ifMade && !processingItem.isProcessing"
 
-                  class="btn btn-success"
+                  class="btn ms-2"
+                  style="background-color: #90AD4D"
                   @click="doOrderPizzaStepMethod({
                   orderNumber: order.number,
                   pizzaIndex: index,
@@ -44,7 +50,7 @@
                 })"
 
               ></step-processing-progress-bar>
-            </div>
+
           </li>
         </ul>
 
@@ -97,21 +103,37 @@ export default {
 </script>
 
 <style scoped>
-.active_item {
-  color: red;
+* {
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 800;
+  letter-spacing: 0.135em;
+  text-align: left;
 }
+.order_data {
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 16px;
+  letter-spacing: 0.135em;
+  text-align: left;
 
-.disabled_item {
-  color: grey;
+}
+.madeStep {
+  color: white;
+  opacity: 40%;
+}
+.active_item {
+
 }
 
 .order {
-  border-radius: 30px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background-color:  #442911;
+  border-radius: 11px;
+  color: white;
 }
 
 .pizzaList, .stepsList {
+  margin-left: 60px;
   list-style: none;
 }
 
@@ -122,12 +144,9 @@ export default {
 
 
 .stepsList li::before {
-  content: "\1F52A";
+  content: "";
   font-size: 20px;
 }
 
-.pizzaList li,
-.stepsList li {
-  white-space: pre;
-}
+
 </style>

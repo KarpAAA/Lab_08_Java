@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      maxWidth: 50,
+      maxWidth: 70,
       progress: 0,
     };
   },
@@ -52,7 +52,7 @@ export default {
 .progress-bar {
   border-radius: 20px;
   height: 20px;
-  background-color: #10c003;
+  background-color: #ACCA66;
   border: solid black 1px;
 }
 </style>

@@ -1,12 +1,11 @@
 <template>
 
-  <div class="block_container scroll_container">
+  <div class="block_container  scroll_container">
     <div class="row p-0 m-0">
       <p class="title text-center m-0 mt-4">
         {{ title }}
       </p>
     </div>
-
     <div class="row mt-5">
       <slot></slot>
     </div>

@@ -14,7 +14,7 @@
         </div>
 
         <div v-if='!this.loginState'>
-          <p class="text-danger mb-3">Bad credentials</p>
+          <p id="errorText" class="text-danger mb-3">Bad credentials</p>
         </div>
 
         <custom-button
@@ -76,6 +76,11 @@ export default {
 </script>
 
 <style scoped>
+#errorText {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
 
 #login_button {
   width: 194px;
