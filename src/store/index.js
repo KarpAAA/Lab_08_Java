@@ -103,8 +103,6 @@ const store = createStore({
                     }
                 })
                 .then(response => {
-                    console.log(response.data.jwtToken.token);
-                    console.log(response.data.user);
                     commit('setJwt', response.data.jwtToken.token);
                     commit('setUser', response.data.user);
                 }).catch(error => {

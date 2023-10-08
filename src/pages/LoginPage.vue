@@ -1,28 +1,46 @@
 <template>
-  <div class="login-container">
-    <h2>Sign in</h2>
-    <div class="form-group">
-      <label for="login">Username: </label>
-      <input type="text" v-model="loginInfo.login" id="login" name="login" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password: </label>
-      <input type="password" v-model="loginInfo.password" id="password" name="password" required>
-    </div>
-    <div v-if='!this.loginState'>
-      <p class="text-danger mb-3">Bad credentials</p>
-    </div>
-    <button class="btn btn-success" @click="loginMethod">Sign in</button>
+  <div class="login-container"  :style="{ backgroundImage: 'url(' + require('@/assets/background.png') + ')' }">
+    <block-component title="Sign in">
+      <div class="d-flex flex-column align-items-center">
 
+        <div class="d-flex mt-2 mb-5 flex-column ps-4 pe-4">
+          <label class="mb-1" for="login">Username: </label>
+          <input type="text" v-model="loginInfo.login" id="login" name="login" required>
+        </div>
+
+        <div class="mt-2 mb-5 d-flex flex-column">
+          <label class="mb-1" for="password">Password: </label>
+          <input type="password" v-model="loginInfo.password" id="password" name="password" required>
+        </div>
+
+        <div v-if='!this.loginState'>
+          <p class="text-danger mb-3">Bad credentials</p>
+        </div>
+
+        <custom-button
+            class="btn btn-success mt-4 mb-5"
+            id="login_button"
+            @click="loginMethod"
+            :style="{ backgroundImage: 'url(' + require('@/assets/log_in_button.png') + ')' }"
+        >
+          Log in
+        </custom-button>
+
+      </div>
+
+    </block-component>
   </div>
 </template>
 
 
 <script>
 import {mapActions, mapState} from "vuex";
+import BlockComponent from "@/components/generalComponents/BlockComponent.vue";
+import CustomButton from "@/components/CustomButton.vue";
 
 export default {
   name: "LoginPage",
+  components: {CustomButton, BlockComponent},
   data() {
     return {
       loginInfo: {
@@ -59,6 +77,11 @@ export default {
 
 <style scoped>
 
+#login_button {
+  width: 194px;
+  height: 62px;
+}
+
 .login-container {
   background-color: #fff;
   padding: 20px;
@@ -72,38 +95,28 @@ export default {
   flex-direction: column;
 }
 
-h2 {
-  margin-top: 0;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
 label {
-  display: block;
-  font-weight: bold;
+  min-width: 404px;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.135em;
+  text-align: left;
+  color: white;
 }
 
 input[type="text"],
 input[type="password"] {
+  font-family: 'Press Start 2P', sans-serif;
+  min-height: 67px;
+  font-size: 20px;
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 11px;
+  background-color: #442911;
+  color: white;
 }
 
-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
 
 </style>

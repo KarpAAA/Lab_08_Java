@@ -2,12 +2,12 @@
 
   <div class="block_container scroll_container">
     <div class="row p-0 m-0">
-      <p class="title text-center m-0">
+      <p class="title text-center m-0 mt-4">
         {{ title }}
       </p>
     </div>
 
-    <div class="row">
+    <div class="row mt-5">
       <slot></slot>
     </div>
 
@@ -28,24 +28,22 @@ export default {
 
 <style scoped>
 .title {
-  font-family: Inter;
-  font-size: 47px;
-  font-weight: 400;
-  line-height: 57px;
-  letter-spacing: 0em;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 40px;
+  font-weight: 1000;
+  line-height: 26px;
+  letter-spacing: 0.03em;
   text-align: left;
-  color: black;
+  color: #FFE082;
+  -webkit-text-stroke: 3px #000; /* Товщина та колір обводки */
 }
 
 .block_container {
-  border-radius: 15px;
-  background-color: #D9D9D9;
-  border: 1px solid #000000;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Добавляем тень */
+  border-radius: 37px;
+  border: 6px solid #442911;
+  background-color: #7D542D;
 }
-.block_container:hover {
-  background-color: #e7e7e7;
-}
+
 .scroll_container {
   overflow-y: scroll;
   overflow-x: hidden;
