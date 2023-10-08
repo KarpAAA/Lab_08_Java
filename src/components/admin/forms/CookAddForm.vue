@@ -1,44 +1,47 @@
 <template>
   <div class="d-flex mt-5 mb-3 justify-content-center">
 
+    <div>
+      <div class="d-flex flex-wrap mt-5">
+        <div class="w-50">
+          <label for="login">Login:</label>
+          <input type="text" id="login" v-model="cookData.login" required>
+        </div>
+        <div style="width: 10%;"></div>
+        <div style="width: 40%;">
+          <label for="age">Age:</label>
+          <input type="number" min="1" id="age" v-model="cookData.age" required>
+        </div>
 
-    <div class="d-flex flex-wrap mt-5">
-      <div class="w-50">
-        <label for="login">Login:</label>
-        <input type="text" id="login" v-model="cookData.login" required>
       </div>
-      <div style="width: 10%;"></div>
-      <div style="width: 40%;">
-        <label for="age">Age:</label>
-        <input type="number" min="1" id="age" v-model="cookData.age" required>
+
+      <div class="d-flex flex-wrap  mt-4">
+        <div class="w-50">
+          <label for="name">Name:</label>
+          <input type="text" id="name" v-model="cookData.name" required>
+        </div>
+        <div style="width: 10%;"></div>
+        <div style="width: 40%;">
+          <label for="salary">Salary:</label>
+          <input type="number" id="salary" v-model="cookData.salary" required>
+        </div>
+      </div>
+
+      <div class="form-group  mt-4 mb-5">
+        <label for="password">Password:</label>
+        <input type="password" id="password" v-model="cookData.password" required>
+      </div>
+      <div class="d-flex justify-content-center mt-2">
+        <custom-button
+            id="save_button"
+            @click="createCook"
+            :style="{ backgroundImage: 'url(' + require('@/assets/small_green_btn.svg') + ')' }">
+          Save
+        </custom-button>
       </div>
 
     </div>
 
-    <div class="d-flex flex-wrap  mt-4">
-      <div class="w-50">
-        <label for="name">Name:</label>
-        <input type="text" id="name" v-model="cookData.name" required>
-      </div>
-      <div style="width: 10%;"></div>
-      <div style="width: 40%;">
-        <label for="salary">Salary:</label>
-        <input type="number" id="salary" v-model="cookData.salary" required>
-      </div>
-    </div>
-
-    <div class="form-group  mt-4 mb-5">
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="cookData.password" required>
-    </div>
-    <div class="d-flex justify-content-center mt-2">
-      <custom-button
-          id="save_button"
-          @click="createCook"
-          :style="{ backgroundImage: 'url(' + require('@/assets/small_green_btn.svg') + ')' }">
-        Save
-      </custom-button>
-    </div>
 
 
   </div>

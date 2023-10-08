@@ -50,7 +50,6 @@ export default {
     };
   },
   mounted() {
-    // Отримуємо висоту контейнера і встановлюємо її для вертикальної лінії
     const orderContainerHeight = this.$refs.orderContainer.clientHeight;
     console.log(orderContainerHeight);
     this.lineStyle = { height: `${orderContainerHeight}px` };

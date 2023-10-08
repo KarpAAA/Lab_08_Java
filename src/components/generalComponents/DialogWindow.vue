@@ -3,12 +3,12 @@
 
     <div class="title titleCook p-3" v-if="title === 'Create Cook'">{{title}}</div>
     <div class="title titleOther p-3" v-else>{{title}}</div>
-
-    <div class="modal-content">
+    <button class="close_btn btn mt-3" @click="closeModal">
+      <img :src="require('@/assets/icons/close_btn.svg')">
+    </button>
+    <div class="modal-content scroll_container">
       <slot></slot>
-      <button class="close_btn btn mt-3" @click="closeModal">
-        <img :src="require('@/assets/icons/close_btn.svg')">
-      </button>
+
     </div>
 
   </div>
@@ -29,10 +29,20 @@ export default {
 </script>
 
 <style scoped>
+.scroll_container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.scroll_container::-webkit-scrollbar {
+  display: none;
+}
+
 .close_btn {
   position: absolute;
-  top: -6%;
-  left: 97%;
+  top: 3%;
+  left: 87%;
+  z-index: 1;
 }
 .close_btn:active {
  border: none;
