@@ -1,30 +1,49 @@
 <template>
-  <div>
-    <form @submit.prevent="createPizza">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" v-model="pizza.name" required>
+  <div class="d-flex mt-5 justify-content-center">
+
+    <div class="d-flex flex-wrap mt-5">
+      <div style="width: 50%">
+        <div class="mb-4">
+          <label for="name">Name:</label>
+          <input type="text" id="name" v-model="pizza.name" required>
+        </div>
+        <div class="mb-4">
+          <label for="price">Price: </label>
+          <input type="number" id="price" v-model="pizza.price" required>
+        </div>
+        <div class="mb-4">
+          <label for="creationTime">Creation time: </label>
+          <input type="number" id="creationTime" v-model="pizza.creationTime" required>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="price">Price: </label>
-        <input type="number" id="price" v-model="pizza.price" required>
+
+      <div class="mb-5" style="width: 50%">
+        <label for="steps" style="margin-left: 30px;">Cooking steps:</label>
+
+        <textarea class="text_area_input_container" id="steps" v-model="pizza.steps"></textarea>
+
       </div>
-      <div class="form-group">
-        <label for="creationTime">Creation time: </label>
-        <input type="number" id="creationTime" v-model="pizza.creationTime" required>
-      </div>
-      <div class="form-group">
-        <label for="steps">Cooking steps:</label>
-        <textarea id="steps" v-model="pizza.steps" rows="4"></textarea>
-      </div>
-      <button type="submit" class="btn btn-success">Save</button>
-    </form>
+
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center mt-5">
+    <custom-button
+        id="save_button"
+        @click="createPizza"
+        :style="{ backgroundImage: 'url(' + require('@/assets/small_green_btn.svg') + ')' }">
+      Save
+    </custom-button>
   </div>
 </template>
 
 <script>
+import CustomButton from "@/components/CustomButton.vue";
+
 export default {
   name: "PizzaFormComponent",
+  components: {CustomButton},
   mounted() {
     if (this.editPizza) {
       console.log(this.editPizza)
@@ -58,40 +77,38 @@ export default {
 </script>
 
 <style scoped>
-.form-group {
-  margin-bottom: 20px;
+.text_area_input_container {
+  border-radius: 11px;
+  background-color: #442911;
+  width: 100%;
+  height: 100%;
+  margin-left: 30px;
 }
 
+#save_button {
+  width: 146px;
+  height: 62px;
+
+}
 label {
-  display: block;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  height: 150px;
-}
-
-button {
-  background-color: #007bff;
+  margin-bottom: 10px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.135em;
+  text-align: left;
   color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
 }
 
-button:hover {
-  background-color: #0056b3;
+input, textarea{
+  font-family: 'Press Start 2P', cursive;
+  min-height: 67px;
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 11px;
+  background-color: #442911;
+  color: white;
 }
 </style>
