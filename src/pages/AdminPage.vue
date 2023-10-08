@@ -1,15 +1,15 @@
 <template>
-  <dialog-window
+  <dialog-window :title="dialogOption"
       @closeModal="closeModal"
       v-if="modalVisible">
-    <cook-add-form v-if="dialogOption === 'createCook'" @createCook="createCookMethod"></cook-add-form>
+    <cook-add-form v-if="dialogOption === 'Create Cook'" @createCook="createCookMethod"></cook-add-form>
     <admin-pizza-menu
         @deletePizza="deletePizzaMethod"
-        @pizzaUpdate="pizzaUpdate" v-if="dialogOption === 'openMenu'" :pizzas="menu"></admin-pizza-menu>
+        @pizzaUpdate="pizzaUpdate" v-if="dialogOption === 'Menu'" :pizzas="menu"></admin-pizza-menu>
     <pizza-form-component
         @savePizza="savePizzaMethod"
         :edit-pizza='pizzaForForm'
-        v-if="dialogOption === 'pizza'" :pizzas="menu"></pizza-form-component>
+        v-if="dialogOption === 'Pizza'" :pizzas="menu"></pizza-form-component>
   </dialog-window>
 
   <div class="row m-0 p-0"
@@ -21,7 +21,7 @@
       <div class="row pt-2" style="height: 10vh">
         <custom-button
             id="menu_button"
-            @click="openModal('openMenu')"
+            @click="openModal('Menu')"
             :style="{ backgroundImage: 'url(' + require('@/assets/small_green_btn.svg') + ')' }"
         >Menu</custom-button>
       </div>
@@ -38,7 +38,7 @@
               </CookInfoItem>
             </div>
             <button class="add_cook_btn align-self-center mb-3"
-                    @click="openModal('createCook')">
+                    @click="openModal('Create Cook')">
               <img :src="require('@/assets/icons/add_btn.svg')">
 
             </button>
@@ -102,7 +102,7 @@ export default {
   data(){
     return{
       modalVisible: false,
-      dialogOption: 'createCook',
+      dialogOption: 'Create Cook',
       pizzaForForm:{}
     }
   },
@@ -112,7 +112,7 @@ export default {
   methods: {
     pizzaUpdate(param){
       this.pizzaForForm = param;
-      this.dialogOption = 'pizza';
+      this.dialogOption = 'Pizza';
     },
     closeModal(){
       this.modalVisible = false;
@@ -123,15 +123,15 @@ export default {
     },
     createCookMethod(cookInfo){
       this.createCook(cookInfo);
-      this.dialogOption = 'createCook';
+      this.dialogOption = 'Create Cook';
     },
     savePizzaMethod(pizzaInfo){
       this.savePizza(pizzaInfo);
-      this.dialogOption = 'openMenu';
+      this.dialogOption = 'Menu';
     },
     deletePizzaMethod(pizzaId){
       this.deletePizza({id:pizzaId})
-      this.dialogOption = 'openMenu';
+      this.dialogOption = 'Menu';
     },
     ...mapActions({
       getRestaurant: 'getRestaurant',
