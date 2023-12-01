@@ -14,7 +14,9 @@
                 :key="index"
                 :order='order'
                 style="width: 85%"
-                :cookSkills='cook.skills'>
+                :cookSkills='cook.skills'
+                :cookId='cook.id'>
+
             </cook-order-item>
           </div>
         </block-component>

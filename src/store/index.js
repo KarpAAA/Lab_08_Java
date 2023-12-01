@@ -314,9 +314,9 @@ const store = createStore({
 })
 setInterval(() => {
     store.dispatch('getRestaurant');
-}, 5000);
+}, 1000);
 
-setInterval(() => {
-    store.dispatch('generateClient');
-}, 10000);
+// setInterval(() => {
+//     store.dispatch('generateClient');
+// }, 10000);
 export default store;

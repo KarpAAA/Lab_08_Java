@@ -42,15 +42,18 @@
                 && processingItem.stepIndex === stepIndex
                 && processingItem.pizzaIndex === index
                 && processingItem.orderNumber === order.number"
-                  total-seconds="3"
+                  total-seconds='3'
                   @setInactive="setInactiveMethod({
                   orderNumber: order.number,
                   pizzaIndex: index,
                   stepIndex: stepIndex
                 })"
-
               ></step-processing-progress-bar>
-
+            <step-processing-progress-bar
+                v-if="step.cook && step.cook.id === cookId"
+                total-seconds='1'
+                @setInactive="setInactiveMethod1()"
+            ></step-processing-progress-bar>
           </li>
         </ul>
 
@@ -76,7 +79,8 @@ export default {
     cookSkills: [Array],
     order: {
       required: true
-    }
+    },
+    cookId: {}
   },
   methods: {
     ...mapActions({
@@ -91,6 +95,10 @@ export default {
       this.$emit('update:processingItem',
           {isProcessing: false,stepIndex: -1,pizzaIndex: -1,orderNumber : -1});
       this.doOrderPizzaStep(reqData);
+    },
+    setInactiveMethod1(){
+      this.$emit('update:processingItem',
+          {isProcessing: false,stepIndex: -1,pizzaIndex: -1,orderNumber : -1});
     },
     findIfHasSkill(skillName) {
       if (this.cookSkills && Array.isArray(this.cookSkills)) {
