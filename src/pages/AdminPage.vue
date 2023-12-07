@@ -69,8 +69,16 @@
         <block-component class="other_container" title="All orders">
           <p class="income_text">{{ stat.income }} 💵 {{ stat.ratingIn5.toFixed(1) }} ⭐️</p>
           <div class="d-flex justify-content-center mt-2 mb-2">
-            <button class="btn btn-light me-3 strategyClass" style="background-color: #442911; color: white; border:none ">Default strategy</button>
-            <button class="btn btn-light strategyClass" style="background-color: #442911; color: white; border:none ">Other strategy</button>
+            <button
+                class="btn btn-light me-3 strategyClass"
+                :class="{ 'active': chosenStrategy === 'Default'}"
+                @click="changeStrategyDefault"
+            >Default strategy</button>
+            <button
+                class="btn btn-light strategyClass"
+                :class="{ 'active': chosenStrategy === 'Other'}"
+                @click="changeStrategyOther"
+            >Other strategy</button>
           </div>
           <order-items :completedOrders="completedOrders"></order-items>
         </block-component>
@@ -109,12 +117,21 @@ export default {
   },
   data() {
     return {
+      chosenStrategy: "Default",
       modalVisible: false,
       dialogOption: 'Create Cook',
       pizzaForForm: {}
     }
   },
   methods: {
+    changeStrategyOther(){
+      this.changeStrategyToOther();
+      this.chosenStrategy='Other'
+    },
+    changeStrategyDefault(){
+      this.changeStrategyToDefault();
+      this.chosenStrategy='Default'
+    },
     pizzaUpdate(param) {
       this.pizzaForForm = param;
       this.dialogOption = 'Pizza';
@@ -143,7 +160,9 @@ export default {
       releaseCook: 'releaseCook',
       createCook: 'createCook',
       savePizza: 'savePizza',
-      deletePizza: 'deletePizza'
+      deletePizza: 'deletePizza',
+      changeStrategyToDefault: 'changeStrategyToDefault',
+      changeStrategyToOther: 'changeStrategyToOther',
     })
   },
   computed: {
@@ -161,6 +180,19 @@ export default {
 <style scoped>
 .strategyClass:hover{
   background-color: #2F1C0B;
+  color: white;
+}
+.strategyClass{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  background-color: #442911;
+  color: white;
+  border:none
+}
+
+.active {
+  background-color: #d5d5d5;
+  color: black;
 }
 .income_text {
   font-family: 'Press Start 2P', cursive;

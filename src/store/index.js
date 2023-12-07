@@ -90,6 +90,24 @@ const store = createStore({
             });
 
         },
+        changeStrategyToDefault({state}){
+            axios.get("http://localhost:8081/strategies/default",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                });
+        },
+        changeStrategyToOther({state}){
+            axios.get("http://localhost:8081/strategies/other",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                });
+        },
         loginToAccount({commit, dispatch}, loginInfo) {
             commit('setUser', {});
             dispatch('getRestaurant');
