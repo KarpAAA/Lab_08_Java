@@ -91,10 +91,9 @@ export default {
     AdminPizzaMenu,
     DialogWindow,
     CustomButton,
-    ErrorComponent, ModalOrderCompletedWindow, UserOrderComponent, UserPaydesksList, BlockComponent},
-  beforeMount() {
-    this.getRestaurant();
+    ErrorComponent, ModalOrderCompletedWindow, UserOrderComponent, UserPaydesksList, BlockComponent
   },
+
   name: "UserPage",
   props: {
     id: {Number}
@@ -134,7 +133,6 @@ export default {
       this.modalVisible = true;
     },
     ...mapActions({
-      getRestaurant: 'getRestaurant',
       standToQueue: 'standToQueue',
       leaveFromQueue: 'leaveFromQueue'
     }),

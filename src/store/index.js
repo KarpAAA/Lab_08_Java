@@ -23,7 +23,7 @@ const store = createStore({
                 cashRegisters: [],
                 completedOrders: [],
                 currentOrders:[],
-                income:{}
+                stat:{}
             }
         }
     },
@@ -42,8 +42,8 @@ const store = createStore({
         setJwt(state, token) {
             state.jwtToken = token;
         },
-        setIncome(state,income){
-          state.restaurant.income = income;
+        setStat(state,stat){
+          state.restaurant.stat = stat;
         },
         setUser(state, user) {
             state.user = user;
@@ -90,6 +90,24 @@ const store = createStore({
             });
 
         },
+        changeStrategyToDefault({state}){
+            axios.get("http://localhost:8081/strategies/default",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                });
+        },
+        changeStrategyToOther({state}){
+            axios.get("http://localhost:8081/strategies/other",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                });
+        },
         loginToAccount({commit, dispatch}, loginInfo) {
             commit('setUser', {});
             dispatch('getRestaurant');
@@ -109,28 +127,27 @@ const store = createStore({
                 console.error(error);
             });
         },
-        getRestaurant({state, commit}) {
-
-            axios.get("http://localhost:8081/restaurant"
-                , {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer " + state.jwtToken
-                    }
-                })
-                .then(response => {
-                    commit('setCashRegisters', response.data.paydesks)
-                    commit('setCooks', response.data.cooks)
-                    commit('setCompletedOrders', response.data.completedOrders)
-                    commit('setClients', response.data.clients)
-                    commit('setMenu', response.data.menu)
-                    commit('setCurrentOrders', response.data.currentOrders)
-                    commit('setIncome', response.data.income)
-                    console.log(response.data);
-                }).catch(error => {
-                console.error(error);
-            });
-        },
+        // getRestaurant({state}) {
+        //     axios.get("http://localhost:8081/restaurant"
+        //         , {
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //                 "Authorization": "Bearer " + state.jwtToken
+        //             }
+        //         })
+        //         .then(response => {
+        //             // commit('setCashRegisters', response.data.paydesks)
+        //             // commit('setCooks', response.data.cooks)
+        //             // commit('setCompletedOrders', response.data.completedOrders)
+        //             // commit('setClients', response.data.clients)
+        //             // commit('setMenu', response.data.menu)
+        //             // commit('setCurrentOrders', response.data.currentOrders)
+        //             // commit('setStat', response.data.stat)
+        //             console.log(response.data);
+        //         }).catch(error => {
+        //         console.error(error);
+        //     });
+        // },
         createCook({state, dispatch}, cookInfo){
             axios.post("http://localhost:8081/cook/create", cookInfo,
                 {
@@ -312,11 +329,12 @@ const store = createStore({
     },
     plugins: [vuexPersist.plugin]
 })
-setInterval(() => {
-    store.dispatch('getRestaurant');
-}, 5000);
+// setInterval(() => {
+//     store.dispatch('getRestaurant');
+// }, 1000);
 
-setInterval(() => {
-    store.dispatch('generateClient');
-}, 10000);
+
+// setInterval(() => {
+//     store.dispatch('generateClient');
+// }, 10000);
 export default store;

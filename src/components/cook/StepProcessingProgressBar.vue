@@ -10,7 +10,7 @@ export default {
   name: "StepProcessingProgressBar",
   props: {
     totalSeconds: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
@@ -30,7 +30,7 @@ export default {
   methods: {
     updateProgressBar() {
       const interval = 1000; // Інтервал оновлення прогресу в мілісекундах (1 секунда)
-      const step = 100 / (this.totalSeconds * 1000 / interval);
+      const step = 100 / (Number.parseInt(this.totalSeconds) * 1000 / interval);
       const stepToWidth = step / (100 / this.maxWidth);
       const timer = setInterval(() => {
         if (this.progress < this.maxWidth) {
