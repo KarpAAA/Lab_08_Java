@@ -1,7 +1,7 @@
 <template>
   <dialog-window :title="dialogOption"
-      @closeModal="closeModal"
-      v-if="modalVisible">
+                 @closeModal="closeModal"
+                 v-if="modalVisible">
     <cook-add-form v-if="dialogOption === 'Create Cook'" @createCook="createCookMethod"></cook-add-form>
     <admin-pizza-menu
         :is-admin="true"
@@ -12,7 +12,6 @@
         :edit-pizza='pizzaForForm'
         v-if="dialogOption === 'Pizza'" :pizzas="menu"></pizza-form-component>
   </dialog-window>
-
 
 
   <div class="row m-0 p-0"
@@ -26,7 +25,8 @@
             id="menu_button"
             @click="openModal('Menu')"
             :style="{ backgroundImage: 'url(' + require('@/assets/small_green_btn.svg') + ')' }"
-        >Menu</custom-button>
+        >Menu
+        </custom-button>
       </div>
 
       <div class="row" style="height: 80vh">
@@ -59,7 +59,7 @@
       <div class="row" style="height: 40vh">
         <block-component class="other_container" title="Cash registers">
           <div class="d-flex flex-wrap">
-          <cash-registers :cash-registers='cashRegisters'></cash-registers>
+            <cash-registers :cash-registers='cashRegisters'></cash-registers>
           </div>
         </block-component>
       </div>
@@ -67,7 +67,11 @@
       <div class="row" style="height: 2vh"></div>
       <div class="row" style="height: 38vh">
         <block-component class="other_container" title="All orders">
-          <p class="income_text">{{ income }} 💵</p>
+          <p class="income_text">{{ stat.income }} 💵 {{ stat.ratingIn5.toFixed(1) }} ⭐️</p>
+          <div class="d-flex justify-content-center mt-2 mb-2">
+            <button class="btn btn-light me-3 strategyClass" style="background-color: #442911; color: white; border:none ">Default strategy</button>
+            <button class="btn btn-light strategyClass" style="background-color: #442911; color: white; border:none ">Other strategy</button>
+          </div>
           <order-items :completedOrders="completedOrders"></order-items>
         </block-component>
       </div>
@@ -101,43 +105,40 @@ export default {
     PizzaFormComponent,
     CookAddForm,
     AdminPizzaMenu,
-     DialogWindow, OrderItems, CashRegisters, CookInfoItem, EmptyColumn, BlockComponent},
-  data(){
-    return{
+    DialogWindow, OrderItems, CashRegisters, CookInfoItem, EmptyColumn, BlockComponent
+  },
+  data() {
+    return {
       modalVisible: false,
       dialogOption: 'Create Cook',
-      pizzaForForm:{}
+      pizzaForForm: {}
     }
   },
-  mounted() {
-    this.getRestaurant();
-  },
   methods: {
-    pizzaUpdate(param){
+    pizzaUpdate(param) {
       this.pizzaForForm = param;
       this.dialogOption = 'Pizza';
     },
-    closeModal(){
+    closeModal() {
       this.modalVisible = false;
     },
-    openModal(dialogOption){
+    openModal(dialogOption) {
       this.dialogOption = dialogOption;
       this.modalVisible = true;
     },
-    createCookMethod(cookInfo){
+    createCookMethod(cookInfo) {
       this.createCook(cookInfo);
       this.dialogOption = 'Create Cook';
     },
-    savePizzaMethod(pizzaInfo){
+    savePizzaMethod(pizzaInfo) {
       this.savePizza(pizzaInfo);
       this.dialogOption = 'Menu';
     },
-    deletePizzaMethod(pizzaId){
-      this.deletePizza({id:pizzaId})
+    deletePizzaMethod(pizzaId) {
+      this.deletePizza({id: pizzaId})
       this.dialogOption = 'Menu';
     },
     ...mapActions({
-      getRestaurant: 'getRestaurant',
       updateCook: 'updateCook',
       releaseCook: 'releaseCook',
       createCook: 'createCook',
@@ -149,8 +150,8 @@ export default {
     ...mapState({
       cooks: state => state.restaurant.cooks,
       cashRegisters: state => state.restaurant.cashRegisters,
-      completedOrders: state => state.restaurant.completedOrders,
-      income: state => state.restaurant.income,
+      completedOrders: state => state.restaurant.stat.completedOrders,
+      stat: state => state.restaurant.stat,
       menu: state => state.restaurant.menu
     })
   }
@@ -158,6 +159,9 @@ export default {
 </script>
 
 <style scoped>
+.strategyClass:hover{
+  background-color: #2F1C0B;
+}
 .income_text {
   font-family: 'Press Start 2P', cursive;
   text-align: center;
@@ -174,11 +178,13 @@ export default {
   background: none;
   border: none;
 }
+
 #menu_button {
   width: 146px;
   height: 62px;
 
 }
+
 .cookContainer {
   height: 100%;
   width: 100%;
