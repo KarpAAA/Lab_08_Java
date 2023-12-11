@@ -50,7 +50,7 @@ export default {
       this.pizza.id = this.editPizza.id;
       this.pizza.name = this.editPizza.name;
       this.pizza.price = this.editPizza.price;
-      this.pizza.creationTime = Math.round(this.editPizza.creationTime / 60000);
+      this.pizza.creationTime = Math.round(this.editPizza.creationTime / 1000);
       this.pizza.steps = this.editPizza.needSteps.map(step => step.name).join("\n");
     }
   },

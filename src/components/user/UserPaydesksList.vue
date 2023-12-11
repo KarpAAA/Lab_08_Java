@@ -22,16 +22,21 @@
 
       <div style="margin-left: 7%; max-height: 40px" class="text_item d-flex align-self-center justify-content-center">{{ paydesk.clients.length }}</div>
       <div style="margin-left: 15%;" class="d-flex align-self-center justify-content-center">
-        <button class="queue_btn p-2"
-                @click='standToQueue(paydesk.index)'
-                v-if="chosenPaydesk === -1">
-          Stand
-        </button>
-        <button  class="queue_btn p-2"
-                @click='leaveFromQueue(paydesk.index)'
-                v-if="paydesk.index === chosenPaydesk">
-          Leave
-        </button>
+<!--        <button class="queue_btn p-2"-->
+<!--                @click='standToQueue(paydesk.index)'-->
+<!--                v-if="chosenPaydesk === -1">-->
+<!--          Stand-->
+<!--        </button>-->
+<!--        <button  class="queue_btn p-2"-->
+<!--                @click='leaveFromQueue(paydesk.index)'-->
+<!--                v-if="paydesk.index === chosenPaydesk">-->
+<!--          Leave-->
+<!--        </button>-->
+        <div  class="queue_btn p-2"
+              v-if="paydesk.index === chosenPaydesk">
+          Here
+        </div>
+
       </div>
 
     </div>

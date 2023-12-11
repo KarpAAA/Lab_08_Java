@@ -21,6 +21,7 @@ export function connect() {
             store.commit('setCurrentOrders', rest.currentOrders)
             store.commit('setStat', rest.stat)
         });
+        store.dispatch('getRestaurant');
     };
 
     stompClient.onWebSocketError = (error) => {

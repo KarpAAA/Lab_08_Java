@@ -67,7 +67,7 @@
       <div class="row" style="height: 2vh"></div>
       <div class="row" style="height: 38vh">
         <block-component class="other_container" title="All orders">
-          <p class="income_text">{{ stat.income }} 💵 {{ stat.ratingIn5.toFixed(1) }} ⭐️</p>
+          <p class="income_text">{{ stat.income }} 💵 {{ rating }} ⭐️</p>
           <div class="d-flex justify-content-center mt-2 mb-2">
             <button
                 class="btn btn-light me-3 strategyClass"
@@ -78,7 +78,7 @@
                 class="btn btn-light strategyClass"
                 :class="{ 'active': chosenStrategy === 'Other'}"
                 @click="changeStrategyOther"
-            >Other strategy</button>
+            >Hard strategy</button>
           </div>
           <order-items :completedOrders="completedOrders"></order-items>
         </block-component>
@@ -123,6 +123,7 @@ export default {
       pizzaForForm: {}
     }
   },
+
   methods: {
     changeStrategyOther(){
       this.changeStrategyToOther();
@@ -166,6 +167,12 @@ export default {
     })
   },
   computed: {
+    rating() {
+      console.log(this.stat)
+      if(this.stat && this.stat.ratingIn5 === 0) return 0;
+      if(!this.stat || !this.stat.ratingIn5) return 5.0;
+      return this.stat.ratingIn5.toFixed(1);
+    },
     ...mapState({
       cooks: state => state.restaurant.cooks,
       cashRegisters: state => state.restaurant.cashRegisters,

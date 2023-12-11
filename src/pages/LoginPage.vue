@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       loginInfo: {
-        login: "KarpA124",
+        login: "Admin1",
         password: "1111"
       },
       loginState: true

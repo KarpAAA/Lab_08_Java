@@ -10,7 +10,7 @@
 
         <div class="mt-4 d-flex flex-wrap">
           <span class="mt-2 text_def" style="width: 35%;">⌚</span>
-          <span class="mt-2 text_def w-50">{{ durationInHour(pizza.creationTime) }}M</span>
+          <span class="mt-2 text_def w-50">{{ durationInSeconds(pizza.creationTime) }} Sec</span>
           <span class="mt-2 text_def" style="width: 35%">💵</span>
           <span class="mt-2 text_def w-50">{{ pizza.price }}</span>
         </div>
@@ -63,8 +63,8 @@ export default {
     }
   },
   methods: {
-    durationInHour(milliseconds) {
-      return Math.round(milliseconds / 60000);
+    durationInSeconds(milliseconds) {
+      return Math.round(milliseconds / 1000);
     }
   }
 }

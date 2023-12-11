@@ -22,21 +22,21 @@
                   class="ms-3 text-start fw-bold">{{ step.name }}</span>
 
 
-              <button
-                  v-if="findIfHasSkill(step.name)
-                && (stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade)
-                && !step.ifMade && !processingItem.isProcessing"
+<!--              <button-->
+<!--                  v-if="findIfHasSkill(step.name)-->
+<!--                && (stepIndex === 0 || pizza.needSteps[stepIndex - 1].ifMade)-->
+<!--                && !step.ifMade && !processingItem.isProcessing"-->
 
-                  class="btn ms-2"
-                  style="background-color: #90AD4D"
-                  @click="doOrderPizzaStepMethod({
-                  orderNumber: order.number,
-                  pizzaIndex: index,
-                  stepIndex: stepIndex
-                })"
-              >
-                Do
-              </button>
+<!--                  class="btn ms-2"-->
+<!--                  style="background-color: #90AD4D"-->
+<!--                  @click="doOrderPizzaStepMethod({-->
+<!--                  orderNumber: order.number,-->
+<!--                  pizzaIndex: index,-->
+<!--                  stepIndex: stepIndex-->
+<!--                })"-->
+<!--              >-->
+<!--                Do-->
+<!--              </button>-->
               <step-processing-progress-bar
                   v-if="processingItem.isProcessing
                 && processingItem.stepIndex === stepIndex

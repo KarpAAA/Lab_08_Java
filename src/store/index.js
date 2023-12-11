@@ -127,27 +127,18 @@ const store = createStore({
                 console.error(error);
             });
         },
-        // getRestaurant({state}) {
-        //     axios.get("http://localhost:8081/restaurant"
-        //         , {
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //                 "Authorization": "Bearer " + state.jwtToken
-        //             }
-        //         })
-        //         .then(response => {
-        //             // commit('setCashRegisters', response.data.paydesks)
-        //             // commit('setCooks', response.data.cooks)
-        //             // commit('setCompletedOrders', response.data.completedOrders)
-        //             // commit('setClients', response.data.clients)
-        //             // commit('setMenu', response.data.menu)
-        //             // commit('setCurrentOrders', response.data.currentOrders)
-        //             // commit('setStat', response.data.stat)
-        //             console.log(response.data);
-        //         }).catch(error => {
-        //         console.error(error);
-        //     });
-        // },
+        getRestaurant({state}) {
+            axios.get("http://localhost:8081/restaurant"
+                , {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + state.jwtToken
+                    }
+                })
+               .catch(error => {
+                console.error(error);
+            });
+        },
         createCook({state, dispatch}, cookInfo){
             axios.post("http://localhost:8081/cook/create", cookInfo,
                 {
@@ -329,12 +320,5 @@ const store = createStore({
     },
     plugins: [vuexPersist.plugin]
 })
-// setInterval(() => {
-//     store.dispatch('getRestaurant');
-// }, 1000);
 
-
-// setInterval(() => {
-//     store.dispatch('generateClient');
-// }, 10000);
 export default store;

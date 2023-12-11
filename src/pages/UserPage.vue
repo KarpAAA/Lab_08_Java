@@ -93,7 +93,6 @@ export default {
     CustomButton,
     ErrorComponent, ModalOrderCompletedWindow, UserOrderComponent, UserPaydesksList, BlockComponent
   },
-
   name: "UserPage",
   props: {
     id: {Number}
@@ -110,12 +109,13 @@ export default {
       return parseInt(this.id)
     },
     order(){
-      if(this.clients && this.clients[this.id]) return this.clients[this.id].order;
-      return null;
+      const client = this.clients.find(client => client.order.number.toString() === this.id.toString());
+      if(client) return client.order;
+     return null;
     },
     chosenPaydeskComputed(){
-      if(this.clients && this.clients[this.id])
-        return this.clients[this.id].chosenPaydesk;
+      const client = this.clients.find(client => client.order.number.toString() === this.id.toString());
+      if(client) return client.chosenPaydesk;
       return -1;
     },
     ...mapState({
